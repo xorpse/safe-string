@@ -24,14 +24,44 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_TYPES_TYPES_H_
-#define _SAFE_STRING_TYPES_TYPES_H_
+#include <stdlib.h> /* calloc */
+#include "types/types.h"
 
-#define SAFE_STRING_INVALID (void *)0
+s_string_t safe_string_new(const char *str)
+{
+	if(str) {
+		int i = 0, j = 0;
+		s_string_t rstring = (s_string_t)calloc(1, sizeof(_s_string_t));
 
-typedef struct _s_string_t {
-	char *s_string;
-	unsigned long int s_length; /* (actually represents the size of the buffer) */
-} _s_string_t, *s_string_t;
+		while(str[i++]) {
+			; /* calculate the length */
+		}
 
-#endif
+		rstring->s_string = (char *)calloc(i, sizeof(char));
+
+		if(!rstring->s_string) {
+			return(SAFE_STRING_INVALID);
+		} else {
+			rstring->s_length = i;
+
+			for(i = j = 0; i < rstring->s_length; i++, j++) {
+				rstring->s_string[i] = str[j];
+			}
+
+			return(rstring);
+		}
+	} else {
+		return(SAFE_STRING_INVALID);
+	}
+}
+
+void safe_string_delete(s_string_t str)
+{
+	if(str && str->s_length) {
+		free(str->s_string);
+		free(str);
+	} else if(str && !str->s_length) {
+		free(str);
+	}
+	str = SAFE_STRING_INVALID;
+}
