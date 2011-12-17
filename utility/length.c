@@ -25,12 +25,15 @@
  */
 
 #include "types/types.h"
+#include "universal/error.h"
 
 unsigned long int safe_string_length(const s_string_t str)
 {
 	if(str && str->s_length) { /* check for a deleted string */
+		safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
 		return(str->s_length - 1);
 	} else {
+		safe_string_set_error(SAFE_STRING_ERROR_BAD_VALUE);
 		return(SAFE_STRING_EMPTY);
 	}
 }

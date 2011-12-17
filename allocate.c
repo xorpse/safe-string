@@ -26,6 +26,7 @@
 
 #include <stdlib.h> /* calloc, free */
 #include "types/types.h"
+#include "universal/error.h"
 
 s_string_t safe_string_new(const char *str)
 {
@@ -41,6 +42,7 @@ s_string_t safe_string_new(const char *str)
 			rstring->s_string = (char *)calloc(i, sizeof(char));
 
 			if(!rstring->s_string) {
+				safe_string_set_error(SAFE_STRING_ERROR_MEM_ALLOC);
 				return(SAFE_STRING_INVALID);
 			} else {
 				rstring->s_length = i;
@@ -48,7 +50,8 @@ s_string_t safe_string_new(const char *str)
 				for(i = j = 0; i < rstring->s_length; i++, j++) {
 					rstring->s_string[i] = str[j];
 				}
-
+				
+				safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
 				return(rstring);
 			}
 		} else {
@@ -57,13 +60,16 @@ s_string_t safe_string_new(const char *str)
 			rstring->s_string = (char *)calloc(1, sizeof(char));
 
 			if(!rstring->s_string) {
+				safe_string_set_error(SAFE_STRING_ERROR_MEM_ALLOC);
 				return(SAFE_STRING_INVALID);
 			} else {
 				rstring->s_length = 1;
+				safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
 				return(rstring);
 			}
 		}
 	} else {
+		safe_string_set_error(SAFE_STRING_ERROR_INVALID_ARG);
 		return(SAFE_STRING_INVALID);
 	}
 }
@@ -76,5 +82,7 @@ void safe_string_delete(s_string_t str)
 	} else if(str && !str->s_length) {
 		free(str);
 	}
+
+	safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
 	str = SAFE_STRING_INVALID;
 }

@@ -24,21 +24,18 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "types/types.h"
+
 #include "universal/error.h"
 
-unsigned char safe_string_index(const s_string_t str, unsigned long int index)
+/* __thread: stored in TLS (linux) */
+__thread s_string_error_t _safe_string_error = SAFE_STRING_ERROR_NO_ERROR;
+
+void safe_string_set_error(s_string_error_t err)
 {
-	if(str) {
-		if(index < 0 || index >= str->s_length) {
-			safe_string_set_error(SAFE_STRING_ERROR_INDEX_BOUNDS);
-			return('\0');
-		} else {
-			safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
-			return(str->s_string[index]);
-		}
-	} else {
-		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
-		return('\0');
-	}
+	_safe_string_error = err;
+}
+
+s_string_error_t safe_string_error(void)
+{
+	return(_safe_string_error);
 }
