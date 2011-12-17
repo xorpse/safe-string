@@ -24,16 +24,12 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_TYPES_TYPES_H_
-#define _SAFE_STRING_TYPES_TYPES_H_
 
-#define SAFE_STRING_INVALID (void *)0
-#define SAFE_STRING_EMPTY 0
+#ifndef _SAFE_STRING_UTILITY_INDEX_H_
+#define _SAFE_STRING_UTILITY_INDEX_H_
 
-typedef struct _s_string_t {
-	char *s_string;
-	unsigned long int s_length; /* (actually represents the size of the buffer) */
-} _s_string_t, *s_string_t;
+#include "types/types.h"
 
+extern unsigned char safe_string_index(const s_string_t, unsigned long int);
 
 #endif
