@@ -28,6 +28,7 @@
 #define _SAFE_STRING_TYPES_TYPES_H_
 
 #define SAFE_STRING_INVALID (void *)0
+#define SAFE_STRING_EMPTY 0
 
 typedef struct _s_string_t {
 	char *s_string;

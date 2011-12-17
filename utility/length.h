@@ -24,57 +24,11 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h> /* calloc, free */
+#ifndef _SAFE_STRING_UTILITY_LENGTH_H_
+#define _SAFE_STRING_UTILITY_LENGTH_H_
+
 #include "types/types.h"
 
-s_string_t safe_string_new(const char *str)
-{
-	s_string_t rstring = (s_string_t)calloc(1, sizeof(_s_string_t));
-	if(rstring) {
-		if(str) {
-			int i = 0, j = 0;
+extern unsigned long int safe_string_length(const s_string_t);
 
-			while(str[i++]) {
-				; /* calculate the buffer size */
-			}
-
-			rstring->s_string = (char *)calloc(i, sizeof(char));
-
-			if(!rstring->s_string) {
-				return(SAFE_STRING_INVALID);
-			} else {
-				rstring->s_length = i;
-
-				for(i = j = 0; i < rstring->s_length; i++, j++) {
-					rstring->s_string[i] = str[j];
-				}
-
-				return(rstring);
-			}
-		} else {
-			s_string_t rstring = (s_string_t)calloc(1, sizeof(_s_string_t));
-		
-			rstring->s_string = (char *)calloc(1, sizeof(char));
-
-			if(!rstring->s_string) {
-				return(SAFE_STRING_INVALID);
-			} else {
-				rstring->s_length = 1;
-				return(rstring);
-			}
-		}
-	} else {
-		return(SAFE_STRING_INVALID);
-	}
-}
-
-void safe_string_delete(s_string_t str)
-{
-	if(str && str->s_length) {
-		free(str->s_string);
-		free(str);
-	} else if(str && !str->s_length) {
-		free(str);
-	}
-	str = SAFE_STRING_INVALID;
-}
+#endif
