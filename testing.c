@@ -2,6 +2,7 @@
 
 #include "allocate.h"
 #include "utility/compare.h"
+#include "utility/case_compare.h"
 #include "utility/length.h"
 #include "utility/index.h"
 #include "types/types.h"
@@ -12,9 +13,9 @@ int main(int argc, char **argv)
 	s_string_t str = safe_string_new("Hello, world!");
 	s_string_t str2;
 
-	str2 = safe_string_new("Hello, world!");
+	str2 = safe_string_new("Hello, woRld!");
 
-	printf("str1 == str2 ? %s\n", !safe_string_compare_limit(str, str2, -100) ? "true" : "false");
+	printf("str1 == str2 ? %s\n", !safe_string_case_compare_limit(str, str2, -100) ? "true" : "false");
 
 	printf("buffer: %s\nlength: %lu\n", str->s_string, safe_string_length(str));
 
