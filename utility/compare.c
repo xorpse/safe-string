@@ -24,5 +24,42 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define MAX(a, b) (a > b) ? a : b
-#define MIN(a, b) (a < b) ? a : b
+#include <stdio.h>
+#include "types/types.h"
+#include "universal/error.h"
+#include "utility/index.h"
+#include "utility/length.h"
+
+int safe_string_compare_limit(s_string_t str1, s_string_t str2, unsigned long int limit)
+{
+	if((str1 && str1->s_string) && (str2 && str2->s_string)) {
+		if(limit >= 0) {
+			unsigned long int i = 0, diff = 0;
+
+			limit = (limit > (str1->s_length > str2->s_length ? str1->s_length : str2->s_length) ? (str1->s_length > str2->s_length ? str1->s_length : str2->s_length) : limit);
+			while((i < limit) && !diff) {
+				diff = (safe_string_index(str1, i) - safe_string_index(str2, i));
+				i++;
+			}
+
+			safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
+			return(diff);
+		} else {
+			safe_string_set_error(SAFE_STRING_ERROR_INVALID_ARG);
+			return(SAFE_STRING_EMPTY);
+		}
+	} else {
+		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
+		return(SAFE_STRING_EMPTY);
+	}
+}
+
+int safe_string_compare(s_string_t str1, s_string_t str2)
+{
+	if((str1 && str1->s_string) && (str2 && str2->s_string)) { /* check it's safe to access the structure */
+		return(safe_string_compare_limit(str1, str2, (safe_string_length(str1) < safe_string_length(str2)) ? safe_string_length(str1) : safe_string_length(str2)));
+	} else {
+		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
+		return(SAFE_STRING_EMPTY);
+	}
+}
