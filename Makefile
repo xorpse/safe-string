@@ -2,11 +2,10 @@ CC=gcc
 CFLAGS= -Wall
 INCLUDE=-I.
 
-ALLOCATE_OBJS=allocate.o
 UTILITY_OBJS=utility/index.o utility/length.o utility/compare.o utility/case_compare.o
-UNIVERSAL_OBJS=universal/error.o
+UNIVERSAL_OBJS=universal/allocate.o universal/error.o
 
-OBJS=$(ALLOCATE_OBJS) $(UTILITY_OBJS) $(UNIVERSAL_OBJS)
+OBJS=$(UTILITY_OBJS) $(UNIVERSAL_OBJS)
 
 .c.o:
 	$(CC) -c $(CFLAGS) $(INCLUDE) $*.c -o $*.o

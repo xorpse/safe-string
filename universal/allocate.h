@@ -24,9 +24,12 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_ALLOCATE_H_
-#define _SAFE_STRING_ALLOCATE_H_
+#ifndef _SAFE_STRING_UNIVERSAL_ALLOCATE_H_
+#define _SAFE_STRING_UNIVERSAL_ALLOCATE_H_
 
-#include "universal/allocate.h"
+#include "types/types.h"
+
+extern s_string_t safe_string_new(const char *);
+extern void safe_string_delete(s_string_t);
 
 #endif
