@@ -1,10 +1,7 @@
 #include <stdio.h>
 
 #include "allocate.h"
-#include "utility/compare.h"
-#include "utility/case_compare.h"
-#include "utility/length.h"
-#include "utility/index.h"
+#include "utility.h"
 #include "types/types.h"
 
 int main(int argc, char **argv)
@@ -16,6 +13,10 @@ int main(int argc, char **argv)
 	str2 = safe_string_new("Hello, woRld!");
 
 	printf("str1 == str2 ? %s\n", !safe_string_case_compare_limit(str, str2, -100) ? "true" : "false");
+
+	safe_string_index_set(str2, 9, 'r');
+
+	printf("str1 == str2 ? %s\n", !safe_string_compare(str, str2) ? "true" : "false");
 
 	printf("buffer: %s\nlength: %lu\n", str->s_string, safe_string_length(str));
 

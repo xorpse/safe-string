@@ -31,5 +31,6 @@
 #include "types/types.h"
 
 extern unsigned char safe_string_index(const s_string_t, unsigned long int);
+extern void safe_string_index_set(s_string_t, unsigned long int, const char);
 
 #endif
