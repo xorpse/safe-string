@@ -24,9 +24,10 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_ALLOCATE_H_
-#define _SAFE_STRING_ALLOCATE_H_
+#ifndef _SAFE_STRING_UNIVERSAL_H_
+#define _SAFE_STRING_UNIVERSAL_H_
 
 #include "universal/allocate.h"
+#include "universal/error.h"
 
 #endif
