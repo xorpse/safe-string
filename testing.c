@@ -18,6 +18,8 @@ int main(int argc, char **argv)
 
 	printf("str1 == str2 ? %s\n", !safe_string_compare(str, str2) ? "true" : "false");
 
+	safe_string_concatenate_limit(str, str2, 200);
+
 	printf("buffer: %s\nlength: %lu\n", str->s_string, safe_string_length(str));
 
 	for(i = 0; i < safe_string_length(str) + 10; i++) {

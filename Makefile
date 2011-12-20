@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS= -Wall
 INCLUDE=-I.
 
-UTILITY_OBJS=utility/index.o utility/length.o utility/compare.o utility/case_compare.o
+UTILITY_OBJS=utility/index.o utility/length.o utility/compare.o utility/case_compare.o utility/concatenate.o
 UNIVERSAL_OBJS=universal/allocate.o universal/error.o
 
 OBJS=$(UTILITY_OBJS) $(UNIVERSAL_OBJS)

@@ -31,5 +31,6 @@
 #include "utility/compare.h"
 #include "utility/case_compare.h"
 #include "utility/length.h"
+#include "utility/concatenate.h"
 
 #endif

@@ -24,36 +24,49 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <stdlib.h>
 #include "types/types.h"
 #include "universal/error.h"
-#include "utility/index.h"
 #include "utility/length.h"
+#include "utility/index.h"
 
-int safe_string_compare_limit(s_string_t str1, s_string_t str2, unsigned long int limit)
+void safe_string_concatenate_limit(s_string_t str1, s_string_t str2, unsigned long int limit)
 {
-	if((str1 && str1->s_string) && (str2 && str2->s_string)) {
-		unsigned long int i = 0, diff = 0;
+	if(str1 && str1->s_string && str2 && str2->s_string) {
+		limit = (limit > safe_string_length(str2)) ? safe_string_length(str2) : limit; 
+		char *new = (char *)realloc(str1->s_string, (safe_string_length(str1) + limit + 1) * sizeof(char));
 
-		limit = (limit > (str1->s_length > str2->s_length ? str1->s_length : str2->s_length) ? (str1->s_length > str2->s_length ? str1->s_length : str2->s_length) : limit);
-		while((i < limit) && !diff) {
-			diff = (safe_string_index(str1, i) - safe_string_index(str2, i));
-			i++;
+		if(new) {
+			unsigned long int i = 0, j = 0, old_length = safe_string_length(str1);
+			str1->s_string = new;
+			str1->s_length = safe_string_length(str1) + limit + 1;
+
+			/* we also want to copy the null */
+			for(i = old_length, j = 0; i < old_length + limit; i++, j++) {
+				safe_string_index_set(str1, i, safe_string_index(str2, j));
+			}
+
+			safe_string_index_set(str1, i, '\0');
+			safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
+			return;
+		} else {
+			safe_string_set_error(SAFE_STRING_ERROR_MEM_ALLOC);
+			return;
 		}
-
-		safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
-		return(diff);
 	} else {
 		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
-		return(SAFE_STRING_EMPTY);
+		return;
 	}
 }
 
-int safe_string_compare(s_string_t str1, s_string_t str2)
+void safe_string_concatenate(s_string_t str1, s_string_t str2)
 {
-	if((str1 && str1->s_string) && (str2 && str2->s_string)) { /* check it's safe to access the structure */
-		return(safe_string_compare_limit(str1, str2, (safe_string_length(str1) < safe_string_length(str2)) ? safe_string_length(str1) : safe_string_length(str2)));
+	if(str1 && str1->s_string && str2 && str2->s_string) {
+		safe_string_concatenate_limit(str1, str2, safe_string_length(str2));
+		return;
 	} else {
 		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
-		return(SAFE_STRING_EMPTY);
+		return;
 	}
+	
 }
