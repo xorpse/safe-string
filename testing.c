@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 	s_string_t str = safe_string_new("Hello, world!");
 	s_string_t str2;
 
-	str2 = safe_string_new("Hello, woRld!");
+	str2 = safe_string_new("Hello!");
 
 	printf("str1 == str2 ? %s\n", !safe_string_case_compare_limit(str, str2, -100) ? "true" : "false");
 
@@ -19,6 +19,8 @@ int main(int argc, char **argv)
 	printf("str1 == str2 ? %s\n", !safe_string_compare(str, str2) ? "true" : "false");
 
 	safe_string_concatenate_limit(str, str2, 200);
+
+	safe_string_copy(str, str2);
 
 	printf("buffer: %s\nlength: %lu\n", str->s_string, safe_string_length(str));
 

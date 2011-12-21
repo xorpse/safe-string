@@ -24,14 +24,12 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UTILITY_H_
-#define _SAFE_STRING_UTILITY_H_
+#ifndef _SAFE_STRING_UTILITY_COPY_H_
+#define _SAFE_STRING_UTILITY_COPY_H_
 
-#include "utility/index.h"
-#include "utility/compare.h"
-#include "utility/case_compare.h"
-#include "utility/length.h"
-#include "utility/concatenate.h"
-#include "utility/copy.h"
+#include "types/types.h"
+
+void safe_string_copy_limit(s_string_t, s_string_t, unsigned long int);
+void safe_string_copy(s_string_t, s_string_t);
 
 #endif

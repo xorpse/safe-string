@@ -24,14 +24,54 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UTILITY_H_
-#define _SAFE_STRING_UTILITY_H_
-
+#include <stdlib.h>
+#include "types/types.h"
+#include "universal/error.h"
 #include "utility/index.h"
-#include "utility/compare.h"
-#include "utility/case_compare.h"
 #include "utility/length.h"
-#include "utility/concatenate.h"
-#include "utility/copy.h"
 
-#endif
+void safe_string_copy_limit(s_string_t str1, s_string_t str2, unsigned long int length)
+{
+	if(str1 && str1->s_string && str2 && str2->s_string) {
+		unsigned long int i = 0;
+		length = (length > safe_string_length(str2) ? safe_string_length(str2) : length);
+		
+		if(safe_string_length(str1) != length) {
+			char *new_string;
+			new_string = (char *)realloc(str1->s_string, (length + 1) * sizeof(char));
+			
+			if(!new_string) {
+				safe_string_set_error(SAFE_STRING_ERROR_MEM_ALLOC);
+				return;
+			} else {
+				str1->s_string = new_string;
+			}
+		}
+
+		for(i = 0; i < length; i++) {
+			safe_string_index_set(str1, i, safe_string_index(str2, i));
+		}
+
+		safe_string_index_set(str1, i, '\0');
+		
+		str1->s_length = length + 1;
+
+		safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
+		return;
+	} else {
+		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
+		return;
+	}
+}
+
+void safe_string_copy(s_string_t str1, s_string_t str2)
+{
+	if(str1 && str1->s_string && str2 && str2->s_string) {
+		safe_string_copy_limit(str1, str2, safe_string_length(str2));
+		return;
+	} else {
+		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
+		return;
+	}
+}
+
