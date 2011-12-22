@@ -1,4 +1,10 @@
-/* Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+/*!
+ * @file universal.h
+ * @brief Main header grouping together all of the universal functions
+ * @author Sam Thomas <s@ghost.sh>
+ *
+ * @section LICENSE
+ * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without

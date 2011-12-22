@@ -1,4 +1,10 @@
-/* Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+/*!
+ * @file utility/concatenate.h
+ * @brief Header file for concatenation functions
+ * @author Sam Thomas <s@ghost.sh>
+ *
+ * @section LICENSE
+ * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -29,7 +35,22 @@
 
 #include "types/types.h"
 
+
+/*!
+ * @brief Concatenates a limited amount of characters from one string to another
+ * @param str1 destination string
+ * @param str2 source string
+ * @param limit maximum amount of characters to concatenate
+ * @note Sets the error variable indicating success or failure
+ */
 void safe_string_concatenate_limit(s_string_t, s_string_t, unsigned long int);
+
+/*!
+ * @brief Concatenates one string to another
+ * @param str1 destination string
+ * @param str2 source string
+ * @note Sets the error variable indicating success or failure
+ */
 void safe_string_concatentate(s_string_t, s_string_t);
 
 #endif

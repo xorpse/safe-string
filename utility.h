@@ -1,4 +1,10 @@
-/* Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+/*!
+ * @file utility.h
+ * @brief Main header grouping all of the utility functions
+ * @author Sam Thomas <s@ghost.sh>
+ *
+ * @section LICENSE
+ * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -27,11 +33,11 @@
 #ifndef _SAFE_STRING_UTILITY_H_
 #define _SAFE_STRING_UTILITY_H_
 
-#include "utility/index.h"
-#include "utility/compare.h"
-#include "utility/case_compare.h"
-#include "utility/length.h"
-#include "utility/concatenate.h"
-#include "utility/copy.h"
+#include "utility/index.h" 
+#include "utility/compare.h" 
+#include "utility/case_compare.h" 
+#include "utility/length.h" 
+#include "utility/concatenate.h" 
+#include "utility/copy.h" 
 
 #endif

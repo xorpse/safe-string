@@ -1,4 +1,10 @@
-/* Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+/*!
+ * @file universal/error.c
+ * @brief Error handling functions
+ * @author Sam Thomas <s@ghost.sh>
+ *
+ * @section LICENSE
+ * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -28,14 +34,31 @@
 #include "universal/error.h"
 
 /* __thread: stored in TLS (linux) */
-__thread s_string_error_t _safe_string_error = SAFE_STRING_ERROR_NO_ERROR;
+__thread s_string_error_t _safe_string_error = SAFE_STRING_ERROR_NO_ERROR; /*!< (INTERNAL) error variable (thread safe) */
 
+/*!
+ * @brief Sets the error variable
+ * @param err value to set the error variable
+ */
 void safe_string_set_error(s_string_error_t err)
 {
 	_safe_string_error = err;
 }
 
-s_string_error_t safe_string_error(void)
+/*!
+ * @brief Gets the error variable's value
+ * @return The value of the error variable
+ */
+s_string_error_t safe_string_error_val(void)
 {
 	return(_safe_string_error);
+}
+
+/*!
+ * @brief Checks if there is an error without regard to it's type
+ * @return Non-zero if there was no error, zero otherwise
+ */
+int safe_string_error(void)
+{
+	return(_safe_string_error == SAFE_STRING_ERROR_NO_ERROR);
 }

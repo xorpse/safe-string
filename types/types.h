@@ -1,4 +1,10 @@
-/* Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+/*!
+ * @file types/types.h
+ * @brief this header contains the definitions of the base types.
+ * @author Sam Thomas <s@ghost.sh>
+ *
+ * @section LICENSE
+ * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -27,13 +33,18 @@
 #ifndef _SAFE_STRING_TYPES_TYPES_H_
 #define _SAFE_STRING_TYPES_TYPES_H_
 
-#define SAFE_STRING_INVALID (void *)0
-#define SAFE_STRING_EMPTY 0
+#define SAFE_STRING_INVALID (void *)0 /*!< Represents the empty string */
+#define SAFE_STRING_EMPTY 0 /*!< Length of the empty string */
 
-typedef struct _s_string_t {
-	char *s_string;
-	unsigned long int s_length; /* (actually represents the size of the buffer) */
-} _s_string_t, *s_string_t;
+/*! 
+ * @brief The base string structure (only used internally)
+ */
+struct _s_string_t { 
+	char *s_string; /*!< Internal buffer storing the string contents */
+	unsigned long int s_length; /*!< Represents the size of the buffer */
+};
 
+typedef struct _s_string_t _s_string_t; /*!< Internal base string type */
+typedef struct _s_string_t *s_string_t; /*!< Base string type */
 
 #endif

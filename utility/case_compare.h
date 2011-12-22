@@ -1,4 +1,10 @@
-/* Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+/*!
+ * @file utility/case_compare.h
+ * @brief Header file for case independent comparison functions
+ * @author Sam Thomas <s@ghost.sh>
+ *
+ * @section LICENSE
+ * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -29,7 +35,30 @@
 
 #include "types/types.h"
 
+
+/*!
+ * @brief Compares two strings irrespective of their case with a limit
+ * @param str1 string to compare
+ * @param str2 string to compare
+ * @param limit maximum amount of characters to compare
+ * @return Computes the result of where a character indexed by str1 differs
+ * from that in str2 from at most the first 'limit' characters in str1; the
+ * difference is calculated from str1[i] - str2[i], where if the elements are
+ * from the alphabet then they are compared using the same case 
+ * @note Sets the error variable indicating success or failure
+ */
 int safe_string_case_compare_limit(s_string_t, s_string_t, unsigned long int);
+
+/*!
+ * @brief Compares two strings irrespective of their case
+ * @param str1 string to compare
+ * @param str2 string to compare
+ * @return Computes the result of where a character indexed by str1 differs
+ * from that in str2, using all of the characters from str1; the difference
+ * is calculated from str1[i] - str2[i], where if the elements are from the
+ * alphabet then they are compared using the same case
+ * @note Sets the error variable indicating success or failure
+ */
 int safe_string_case_compare(s_string_t, s_string_t, unsigned long int);
 
 #endif

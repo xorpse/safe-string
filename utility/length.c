@@ -1,4 +1,10 @@
-/* Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+/*!
+ * @file utility/length.c
+ * @brief Function for obtaining the length of a string
+ * @author Sam Thomas <s@ghost.sh>
+ *
+ * @section LICENSE
+ * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -27,6 +33,12 @@
 #include "types/types.h"
 #include "universal/error.h"
 
+/*!
+ * @brief Obtains the length of a string
+ * @param str source string
+ * @return The length of the string (this is not the size of it's buffer)
+ * @note Sets the error variable indicating success or failure
+ */
 unsigned long int safe_string_length(const s_string_t str)
 {
 	if(str && str->s_length) { /* check for a deleted string */

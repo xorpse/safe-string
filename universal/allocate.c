@@ -1,4 +1,10 @@
-/* Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+/*!
+ * @file universal/allocate.c
+ * @brief String allocation and deletion functions
+ * @author Sam Thomas <s@ghost.sh>
+ *
+ * @section LICENSE
+ * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -28,6 +34,13 @@
 #include "types/types.h"
 #include "universal/error.h"
 
+/*!
+ * @brief Allocates a new string with a given value
+ * @param str value to assign the string
+ * @return The newly created string, or an invalid string
+ * if there was an error
+ * @note Sets the error variable indicating success or failure
+ */
 s_string_t safe_string_new(const char *str)
 {
 	s_string_t rstring = (s_string_t)calloc(1, sizeof(_s_string_t));
@@ -74,6 +87,11 @@ s_string_t safe_string_new(const char *str)
 	}
 }
 
+/*!
+ * @brief Deletes a given string
+ * @param str source string
+ * @note Sets the error variable indicating success or failure
+ */
 void safe_string_delete(s_string_t str)
 {
 	if(str && str->s_length) {

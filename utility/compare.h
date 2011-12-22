@@ -1,4 +1,10 @@
-/* Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+/*!
+ * @file utility/compare.h
+ * @brief Header file for basic comparison functions
+ * @author Sam Thomas <s@ghost.sh>
+ *
+ * @section LICENSE
+ * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -29,7 +35,29 @@
 
 #include "types/types.h"
 
+/*!
+ * @brief Compares two strings with a limit
+ * @param str1 string to compare
+ * @param str2 string to compare
+ * @param limit maximum amount of characters to compare from str1
+ * @return The difference between either where two indexed characters from str1
+ * and str2 aren't equal; or where the index has reached the limit value or the
+ * end of str1; the difference is computed as follows: str1[i] - str2[i] or 0 in
+ * the case of no differences
+ * @note Sets the error variable indicating success or failure
+ */
 extern int safe_string_compare_limit(s_string_t, s_string_t, unsigned long int);
+
+/*!
+ * @brief Compares two strings
+ * @param str1 string to compare
+ * @param str2 string to compare
+ * @return The difference between either where two indexed characters from str1
+ * and str2 aren't equal; or where the index has reached the end of str1; the
+ * difference is computed as follows: str1[i] - str2[i] or 0 in the case of no
+ * differences
+ * @note Sets the error variable indicating success or failure
+ */
 extern int safe_string_compare(s_string_t, s_string_t);
 
 #endif

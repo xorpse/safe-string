@@ -1,4 +1,10 @@
-/* Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+/*!
+ * @file utility/compare.c
+ * @brief Comparison functions
+ * @author Sam Thomas <s@ghost.sh>
+ *
+ * @section LICENSE
+ * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -29,6 +35,17 @@
 #include "utility/index.h"
 #include "utility/length.h"
 
+/*!
+ * @brief Compares two strings with a limit
+ * @param str1 string to compare
+ * @param str2 string to compare
+ * @param limit maximum amount of characters to compare from str1
+ * @return The difference between either where two indexed characters from str1
+ * and str2 aren't equal; or where the index has reached the limit value or the
+ * end of str1; the difference is computed as follows: str1[i] - str2[i] or 0 in
+ * the case of no differences
+ * @note Sets the error variable indicating success or failure
+ */
 int safe_string_compare_limit(s_string_t str1, s_string_t str2, unsigned long int limit)
 {
 	if((str1 && str1->s_string) && (str2 && str2->s_string)) {
@@ -48,6 +65,16 @@ int safe_string_compare_limit(s_string_t str1, s_string_t str2, unsigned long in
 	}
 }
 
+/*!
+ * @brief Compares two strings
+ * @param str1 string to compare
+ * @param str2 string to compare
+ * @return The difference between either where two indexed characters from str1
+ * and str2 aren't equal; or where the index has reached the end of str1; the
+ * difference is computed as follows: str1[i] - str2[i] or 0 in the case of no
+ * differences
+ * @note Sets the error variable indicating success or failure
+ */
 int safe_string_compare(s_string_t str1, s_string_t str2)
 {
 	if((str1 && str1->s_string) && (str2 && str2->s_string)) { /* check it's safe to access the structure */

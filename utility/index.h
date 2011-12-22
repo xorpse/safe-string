@@ -1,4 +1,10 @@
-/* Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+/*!
+ * @file utility/index.h
+ * @brief Header file for indexing functions
+ * @author Sam Thomas <s@ghost.sh>
+ *
+ * @section LICENSE
+ * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -30,7 +36,23 @@
 
 #include "types/types.h"
 
+/*!
+ * @brief Obtains the element at a given string index
+ * @param str source string
+ * @param index element index to access
+ * @return If the index is valid the element is returned, otherwise
+ * a NULL value is returned
+ * @note Sets the error variable indicating success or failure
+ */
 extern unsigned char safe_string_index(const s_string_t, unsigned long int);
+
+/*!
+ * @brief Sets the element at a given string index
+ * @param str destination string
+ * @param index element index to set
+ * @param c value to assign the element
+ * @note Sets the error variable indicating success or failure
+ */
 extern void safe_string_index_set(s_string_t, unsigned long int, const char);
 
 #endif
