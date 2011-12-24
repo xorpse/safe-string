@@ -6,9 +6,10 @@
 
 int main(int argc, char **argv)
 {
-	int i = 0;
+	int i = 0, j = 0;
 	s_string_t str = safe_string_new("Hello, world!");
 	s_string_t str2;
+        s_strings_t strz;
 
 	str2 = safe_string_new("Hello!");
 
@@ -22,6 +23,15 @@ int main(int argc, char **argv)
 
 	safe_string_copy(str, str2);
 
+	strz = safe_string_chunk_split(str2, 2, NULL, &i);
+
+	j = i;
+
+	printf("%d %d\n", safe_string_error(), i);
+
+	while(i) {
+		printf("%s", strz[--i]->s_string);
+	}
 	printf("buffer: %s\nlength: %lu\n", str->s_string, safe_string_length(str));
 
 	for(i = 0; i < safe_string_length(str) + 10; i++) {
@@ -29,6 +39,7 @@ int main(int argc, char **argv)
 	}
 
 	safe_string_delete(str);
+	safe_string_array_delete(strz, j);
 
 	str = safe_string_new(NULL);
 

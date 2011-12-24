@@ -46,5 +46,6 @@ struct _s_string_t {
 
 typedef struct _s_string_t _s_string_t; /*!< Internal base string type */
 typedef struct _s_string_t *s_string_t; /*!< Base string type */
+typedef s_string_t *s_strings_t; /*!< Array of strings type */
 
 #endif

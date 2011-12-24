@@ -1,6 +1,6 @@
 /*!
- * @file utility/concatenate.h
- * @brief Header file for concatenation functions
+ * @file utility/chunk_split.h
+ * @brief Header for implementation of PHP's chunk_split
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
@@ -30,27 +30,20 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UTILITY_CONCATENATE_H_
-#define _SAFE_STRING_UTILITY_CONCATENATE_H_
+#ifndef _SAFE_STRING_UTILITY_CHUNK_SPLIT_H_
+#define _SAFE_STRING_UTILITY_CHUNK_SPLIT_H_
 
 #include "types/types.h"
 
-
 /*!
- * @brief Concatenates a limited amount of characters from one string to another
- * @param str1 destination string
- * @param str2 source string
- * @param limit maximum amount of characters to concatenate
+ * @brief Splits a string into chunks of a certain size, with an optional delimeter concatenated
+ * @param str source string
+ * @param size length of each chunk
+ * @param delim the delimeter to concatenate to each chunk (if NULL then nothing is concatenated)
+ * @param count the variable to store the amount of strings that will be returned
+ * @return An array of strings, or SAFE_STRING_INVALID in case of an error
  * @note Sets the error variable indicating success or failure
  */
-void safe_string_concatenate_limit(s_string_t, s_string_t, unsigned long int);
-
-/*!
- * @brief Concatenates one string to another
- * @param str1 destination string
- * @param str2 source string
- * @note Sets the error variable indicating success or failure
- */
-void safe_string_concatenate(s_string_t, s_string_t);
+extern s_strings_t safe_string_chunk_split(s_string_t, unsigned long int, const char *, unsigned long int *);
 
 #endif

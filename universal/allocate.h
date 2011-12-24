@@ -51,4 +51,12 @@ extern s_string_t safe_string_new(const char *);
  */
 extern void safe_string_delete(s_string_t);
 
+/*!
+ * @brief Deletes a given array of strings
+ * @param strs source array of strings
+ * @param count number of elements in the array
+ * @note Sets the error variable indicating success or failure
+ */
+extern void safe_string_array_delete(s_strings_t strs, int count);
+
 #endif

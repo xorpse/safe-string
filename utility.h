@@ -39,5 +39,6 @@
 #include "utility/length.h" 
 #include "utility/concatenate.h" 
 #include "utility/copy.h" 
+#include "utility/chunk_split.h"
 
 #endif
