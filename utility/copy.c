@@ -35,6 +35,7 @@
 #include "universal/error.h"
 #include "utility/index.h"
 #include "utility/length.h"
+#include "macro.h"
 
 /*!
  * @brief Copies a limited amount of characters from one string to another
@@ -45,9 +46,9 @@
  */
 void safe_string_copy_limit(s_string_t str1, s_string_t str2, unsigned long int length)
 {
-	if(str1 && str1->s_string && str2 && str2->s_string) {
+	if(safe_string_valid(str1) && safe_string_valid(str2)) {
 		unsigned long int i = 0;
-		length = (length > safe_string_length(str2) ? safe_string_length(str2) : length);
+		length = MIN(length, safe_string_length(str2));
 		
 		if(safe_string_length(str1) != length) {
 			char *new_string;
@@ -85,7 +86,7 @@ void safe_string_copy_limit(s_string_t str1, s_string_t str2, unsigned long int 
  */
 void safe_string_copy(s_string_t str1, s_string_t str2)
 {
-	if(str1 && str1->s_string && str2 && str2->s_string) {
+	if(safe_string_valid(str1) && safe_string_valid(str2)) {
 		safe_string_copy_limit(str1, str2, safe_string_length(str2));
 		return;
 	} else {

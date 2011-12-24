@@ -34,6 +34,7 @@
 #include "universal/error.h"
 #include "utility/index.h"
 #include "utility/length.h"
+#include "macro.h"
 
 /*!
  * @brief Compares two strings with a limit
@@ -48,10 +49,11 @@
  */
 int safe_string_compare_limit(s_string_t str1, s_string_t str2, unsigned long int limit)
 {
-	if((str1 && str1->s_string) && (str2 && str2->s_string)) {
+	if(safe_string_valid(str1) && safe_string_valid(str2)) {
 		unsigned long int i = 0, diff = 0;
 
-		limit = (limit > (str1->s_length > str2->s_length ? str1->s_length : str2->s_length) ? (str1->s_length > str2->s_length ? str1->s_length : str2->s_length) : limit);
+		//limit = (limit > (str1->s_length > str2->s_length ? str1->s_length : str2->s_length) ? (str1->s_length > str2->s_length ? str1->s_length : str2->s_length) : limit);
+		limit = MIN(limit, MAX(str1->s_length, str2->s_length));
 		while((i < limit) && !diff) {
 			diff = (safe_string_index(str1, i) - safe_string_index(str2, i));
 			i++;
@@ -77,7 +79,7 @@ int safe_string_compare_limit(s_string_t str1, s_string_t str2, unsigned long in
  */
 int safe_string_compare(s_string_t str1, s_string_t str2)
 {
-	if((str1 && str1->s_string) && (str2 && str2->s_string)) { /* check it's safe to access the structure */
+	if(safe_string_valid(str1) && safe_string_valid(str2)) { /* check it's safe to access the structure */
 		return(safe_string_compare_limit(str1, str2, (safe_string_length(str1) < safe_string_length(str2)) ? safe_string_length(str1) : safe_string_length(str2)));
 	} else {
 		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);

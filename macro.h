@@ -1,6 +1,6 @@
 /*!
- * @file utility/length.c
- * @brief Function for obtaining the length of a string
+ * @file macro.h
+ * @brief Header containing macros for commonly used expressions
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
@@ -30,24 +30,32 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef _SAFE_STRING_MACRO_H_
+#define _SAFE_STRING_MACRO_H_
+
 #include "types/types.h"
-#include "universal/error.h"
-#include "macro.h"
 
 /*!
- * @brief Obtains the length of a string
- * @param str source string
- * @return The length of the string (this is not the size of it's buffer)
- * @note Sets the error variable indicating success or failure
+ * @brief Macro to test validity of a safe string variable
+ * @param s source string
+ * @return Boolean value of true if valid, else false
  */
-unsigned long int safe_string_length(const s_string_t str)
-{
-	if(safe_string_valid(str)) { /* check for a deleted string */
-		safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
-		return(str->s_length - 1);
-	} else {
-		safe_string_set_error(SAFE_STRING_ERROR_BAD_VALUE);
-		return(SAFE_STRING_EMPTY);
-	}
-}
+#define safe_string_valid(s) ((s) && (s)->s_string)
 
+/*!
+ * @brief Macro to return the larger of two values (assumes testing on primitive types)
+ * @param a first value
+ * @param b second value
+ * @return The greater of a and b
+ */
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+
+/*!
+ * @brief Macro to return the larger of two values (assumes testing on primitive types)
+ * @param a first value
+ * @param b second value
+ * @return The greater of a and b
+ */
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+
+#endif

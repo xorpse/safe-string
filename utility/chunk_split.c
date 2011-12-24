@@ -35,6 +35,7 @@
 #include "types/types.h"
 #include "universal.h"
 #include "utility.h"
+#include "macro.h"
 
 /*!
  * @brief Splits a string into chunks of a certain size, with an optional delimeter concatenated
@@ -48,7 +49,7 @@
 s_strings_t safe_string_chunk_split(s_string_t str, unsigned long int size, const char *delim, unsigned long int *count)
 {
 	if(size) {
-		if(str && str->s_string && count) {
+		if(safe_string_valid(str) && count) {
 			s_string_t delimeter = safe_string_new(delim);
 			char *strn = (char *)calloc(size + 1, size);
 			*count = (safe_string_length(str) / size) + (safe_string_length(str) % size ? 1 : 0);

@@ -6,18 +6,18 @@
 
 int main(int argc, char **argv)
 {
-	int i = 0, j = 0;
+	unsigned long int i = 0, j = 0;
 	s_string_t str = safe_string_new("Hello, world!");
 	s_string_t str2;
         s_strings_t strz;
 
-	str2 = safe_string_new("Hello!");
+	str2 = safe_string_new("Hello, world!");
 
-	printf("str1 == str2 ? %s\n", !safe_string_case_compare_limit(str, str2, -100) ? "true" : "false");
+	printf("str1 == str2 ? %s\n", !safe_string_case_compare_limit(str, str2, 100) ? "true" : "false");
 
 	safe_string_index_set(str2, 9, 'r');
 
-	printf("str1 == str2 ? %s\n", !safe_string_compare(str, str2) ? "true" : "false");
+	printf("str1 == str2 ? %s\n", !safe_string_compare_limit(str, str2, 5) ? "true" : "false");
 
 	safe_string_concatenate_limit(str, str2, 200);
 

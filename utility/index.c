@@ -33,6 +33,7 @@
 #include "types/types.h"
 #include "universal/error.h"
 #include "utility/length.h"
+#include "macro.h"
 
 /*!
  * @brief Obtains the element at a given string index
@@ -44,7 +45,7 @@
  */
 unsigned char safe_string_index(const s_string_t str, unsigned long int index)
 {
-	if(str) {
+	if(safe_string_valid(str)) {
 		if(index < 0 || index > safe_string_length(str)) {
 			safe_string_set_error(SAFE_STRING_ERROR_INDEX_BOUNDS);
 			return('\0');
@@ -67,7 +68,7 @@ unsigned char safe_string_index(const s_string_t str, unsigned long int index)
  */
 void safe_string_index_set(s_string_t str, unsigned long int index, const char c)
 {
-	if(str) {
+	if(safe_string_valid(str)) {
 		if(index < 0 || index > safe_string_length(str)) {
 			safe_string_set_error(SAFE_STRING_ERROR_INDEX_BOUNDS);
 			return;

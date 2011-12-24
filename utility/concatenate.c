@@ -35,6 +35,7 @@
 #include "universal/error.h"
 #include "utility/length.h"
 #include "utility/index.h"
+#include "macro.h"
 
 /*!
  * @brief Concatenates a limited amount of characters from one string to another
@@ -45,8 +46,8 @@
  */
 void safe_string_concatenate_limit(s_string_t str1, s_string_t str2, unsigned long int limit)
 {
-	if(str1 && str1->s_string && str2 && str2->s_string) {
-		limit = (limit > safe_string_length(str2)) ? safe_string_length(str2) : limit; 
+	if(safe_string_valid(str1) && safe_string_valid(str2)) {
+		limit = MIN(limit, safe_string_length(str2));
 		char *new = (char *)realloc(str1->s_string, (safe_string_length(str1) + limit + 1) * sizeof(char));
 
 		if(new) {
@@ -80,7 +81,7 @@ void safe_string_concatenate_limit(s_string_t str1, s_string_t str2, unsigned lo
  */
 void safe_string_concatenate(s_string_t str1, s_string_t str2)
 {
-	if(str1 && str1->s_string && str2 && str2->s_string) {
+	if(safe_string_valid(str1) && safe_string_valid(str2)) {
 		safe_string_concatenate_limit(str1, str2, safe_string_length(str2));
 		return;
 	} else {
