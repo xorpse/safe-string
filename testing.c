@@ -7,6 +7,7 @@
 int main(int argc, char **argv)
 {
 	unsigned long int i = 0, j = 0;
+        char *freqs;
 	s_string_t str = safe_string_new("Hello, world!");
 	s_string_t str2;
         s_strings_t strz;
@@ -38,12 +39,19 @@ int main(int argc, char **argv)
 		printf("%c", safe_string_index(str, i));
 	}
 
-	safe_string_delete(str);
+	//safe_string_delete(str);
 	safe_string_array_delete(strz, j);
 
-	str = safe_string_new(NULL);
+	freqs = safe_string_count_chars(str, S_COUNT_CHARS_MODE_CHARS_NOT_UNIQUE, &i);
+
+	printf("%lu\n", i);
+
+	while(i--) {
+		printf("%c\n", freqs[i]);
+	}
 
 	printf("buffer: %s", str->s_string);
-
+	
+	safe_string_delete(str);
 	return(0);
 }

@@ -40,5 +40,6 @@
 #include "utility/concatenate.h" 
 #include "utility/copy.h" 
 #include "utility/chunk_split.h"
+#include "utility/count_chars.h"
 
 #endif

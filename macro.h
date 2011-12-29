@@ -33,7 +33,10 @@
 #ifndef _SAFE_STRING_MACRO_H_
 #define _SAFE_STRING_MACRO_H_
 
+#include <limits.h>
 #include "types/types.h"
+
+#define S_CHARSET_LIMIT (UCHAR_MAX + 1)
 
 /*!
  * @brief Macro to test validity of a safe string variable
