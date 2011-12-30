@@ -32,7 +32,7 @@
 
 #include <stdlib.h> /* calloc, free */
 #include "types/types.h"
-#include "universal/error.h"
+#include "universal.h"
 
 /*!
  * @brief Allocates a new string with a given value
@@ -46,7 +46,7 @@ s_string_t safe_string_new(const char *str)
 	s_string_t rstring = (s_string_t)calloc(1, sizeof(_s_string_t));
 	if(rstring) {
 		if(str) {
-			int i = 0, j = 0;
+			unsigned long int i = 0, j = 0;
 
 			while(str[i++]) {
 				; /* calculate the buffer size */
@@ -111,11 +111,11 @@ void safe_string_delete(s_string_t str)
  * @param count number of elements in the array
  * @note Sets the error variable indicating success or failure
  */
-void safe_string_array_delete(s_strings_t strs, int count)
+void safe_string_array_delete(s_strings_t strs, unsigned long int count)
 {
 	if(strs) {
 		if(count) {
-			int i = 0;
+			unsigned long int i = 0;
 
 			for(i = 0; i < count; i++) {
 				safe_string_delete(strs[i]);

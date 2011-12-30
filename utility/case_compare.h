@@ -59,6 +59,6 @@ int safe_string_case_compare_limit(s_string_t, s_string_t, unsigned long int);
  * alphabet then they are compared using the same case
  * @note Sets the error variable indicating success or failure
  */
-int safe_string_case_compare(s_string_t, s_string_t, unsigned long int);
+int safe_string_case_compare(s_string_t, s_string_t);
 
 #endif

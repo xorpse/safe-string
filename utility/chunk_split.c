@@ -57,7 +57,7 @@ s_strings_t safe_string_chunk_split(s_string_t str, unsigned long int size, cons
 			s_strings_t chunks = (s_string_t *)calloc(*count, sizeof(s_string_t));
 
 			if(chunks && strn && delimeter) {
-				int i = 0;
+				unsigned long int i = 0;
 
 				for(i = 0; i < *count; i++) {
 					strncpy(strn, (str->s_string + (i * size)), size);

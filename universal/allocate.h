@@ -57,6 +57,6 @@ extern void safe_string_delete(s_string_t);
  * @param count number of elements in the array
  * @note Sets the error variable indicating success or failure
  */
-extern void safe_string_array_delete(s_strings_t strs, int count);
+extern void safe_string_array_delete(s_strings_t strs, unsigned long int count);
 
 #endif

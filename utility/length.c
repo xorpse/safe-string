@@ -31,7 +31,7 @@
  */
 
 #include "types/types.h"
-#include "universal/error.h"
+#include "universal.h"
 #include "macro.h"
 
 /*!

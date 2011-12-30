@@ -31,8 +31,8 @@
  */
 
 #include "types/types.h"
-#include "universal/error.h"
-#include "utility/length.h"
+#include "universal.h"
+#include "utility.h"
 #include "macro.h"
 
 /*!

@@ -31,7 +31,7 @@
  */
 
 
-#include "universal/error.h"
+#include "universal.h"
 
 /* __thread: stored in TLS (linux) */
 __thread s_string_error_t _safe_string_error = SAFE_STRING_ERROR_NO_ERROR; /*!< (INTERNAL) error variable (thread safe) */
