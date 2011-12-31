@@ -146,7 +146,7 @@ char *_safe_string_count_chars_chars(s_string_t str, s_string_count_chars_mode_t
 						break;
 				}
 
-				if(realloc(rcounts, j * sizeof(char))) {
+				if(!j || realloc(rcounts, j * sizeof(char))) {
 					safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
 					free(counts);
 					*count = j;
@@ -154,11 +154,7 @@ char *_safe_string_count_chars_chars(s_string_t str, s_string_count_chars_mode_t
 				} else {
 					safe_string_set_error(SAFE_STRING_ERROR_MEM_ALLOC);
 					free(counts);
-					
-					if(j) { /* in case we have nothing */
-						free(rcounts);
-					}
-					
+					free(rcounts);
 					*count = SAFE_STRING_EMPTY;
 					return(SAFE_STRING_INVALID);
 				}

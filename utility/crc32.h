@@ -1,6 +1,6 @@
 /*!
- * @file universal/error.c
- * @brief Error handling functions
+ * @file utility/crc32.c
+ * @brief Implementation of crc32 operating on safe strings
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
@@ -30,35 +30,23 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef _SAFE_STRING_UTILITY_CRC32_H_
+#define _SAFE_STRING_UTILITY_CRC32_H_
 
-#include "universal.h"
-
-/* __thread: stored in TLS (linux) */
-__thread s_string_error_t _safe_string_error = SAFE_STRING_ERROR_NO_ERROR; /*!< (INTERNAL) error variable (thread safe) */
-
-/*!
- * @brief Sets the error variable
- * @param err value to set the error variable
- */
-void safe_string_set_error(s_string_error_t err)
-{
-	_safe_string_error = err;
-}
+#include <stdint.h>
+#include "types/types.h"
 
 /*!
- * @brief Gets the error variable's value
- * @return The value of the error variable
+ * @brief Generates the CRC32 checksum of a given safe string
+ * @param str the source string
+ * @return The CRC32 checksum calculated from the given string
+ * @note Sets the error variable indicating success or failure
  */
-s_string_error_t safe_string_error_val(void)
-{
-	return(_safe_string_error);
-}
+extern uint32_t safe_string_crc32(s_string_t);
 
 /*!
- * @brief Checks if there is an error without regard to it's type
- * @return Non-zero if there was error, zero otherwise
+ * @brief Frees the memory held by the CRC32 lookup table
  */
-int safe_string_error(void)
-{
-	return(_safe_string_error != SAFE_STRING_ERROR_NO_ERROR);
-}
+extern void safe_string_crc32_delete(void);
+
+#endif
