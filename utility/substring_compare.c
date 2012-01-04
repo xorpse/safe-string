@@ -1,6 +1,6 @@
 /*!
- * @file universal/error.h
- * @brief Header file for error handling functions
+ * @file utility/substring_compare.c
+ * @brief Comparison of a string within the source string
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
@@ -30,37 +30,41 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UNIVERSAL_ERROR_H_
-#define _SAFE_STRING_UNIVERSAL_ERROR_H_
+#include "types/types.h"
+#include "universal.h"
+#include "utility.h"
+#include "macro.h"
 
-/*!
- * @brief Type definition for error value enumeration
- */
-typedef enum { \
-	SAFE_STRING_ERROR_NO_ERROR /*!< Success */, \
-	SAFE_STRING_ERROR_INVALID_ARG /*!< Invalid argument passed to the function */, \
-	SAFE_STRING_ERROR_MEM_ALLOC /*!< Couldn't allocate memory and thus could not continue execution of the function */, \
-	SAFE_STRING_ERROR_NULL_POINTER /*!< A NULL pointer was passed to the function and it couldn't be handled */, \
-	SAFE_STRING_ERROR_INDEX_BOUNDS /*!< An attempt was made to access memory outside of the defined boundaries */, \
-	SAFE_STRING_ERROR_BAD_VALUE /*!< An invalid value was produced/taken */ \
-} s_string_error_t;
+int safe_string_substring_compare_limit(s_string_t str1, s_string_t str2, unsigned long int offset, unsigned long int limit)
+{
+	if(safe_string_valid(str1) && safe_string_valid(str2)) {
+		if(safe_string_length(str1) > offset && limit >= offset) {
+			int diff = 0;
+			unsigned long int i = 0;
+			limit = MIN(limit, MAX(safe_string_length(str1), safe_string_length(str2) + offset));
 
-/*!
- * @brief Sets the error variable
- * @param err value to set the error variable
- */
-extern void safe_string_set_error(s_string_error_t);
+			while((offset < limit) && !diff && !safe_string_error()) {
+				diff = (safe_string_index(str1, offset++) - safe_string_index(str2, i++));
+			}
 
-/*!
- * @brief Gets the error variable's value
- * @return The value of the error variable
- */
-extern s_string_error_t safe_string_error_val(void);
+			safe_string_set_error(safe_string_error());
+			return(diff);
+		} else {
+			safe_string_set_error(SAFE_STRING_ERROR_INVALID_ARG);
+			return(SAFE_STRING_EMPTY);
+		}
+	} else {
+		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
+		return(SAFE_STRING_EMPTY);
+	}
+}
 
-/*!
- * @brief Checks if there is an error without regard to it's type
- * @return Non-zero if there was an error, zero otherwise
- */
-int safe_string_error(void);
-
-#endif
+int safe_string_substring_compare(s_string_t str1, s_string_t str2, unsigned long int offset)
+{
+	if(safe_string_valid(str1) && safe_string_valid(str2)) {
+		return(safe_string_substring_compare_limit(str1, str2, offset, MIN(safe_string_length(str1), safe_string_length(str2) + offset)));
+	} else {
+		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
+		return(SAFE_STRING_EMPTY);
+	}
+}

@@ -41,5 +41,6 @@
 #include "utility/copy.h" 
 #include "utility/chunk_split.h"
 #include "utility/count_chars.h"
+#include "utility/substring_compare.h"
 
 #endif

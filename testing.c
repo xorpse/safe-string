@@ -9,16 +9,20 @@ int main(int argc, char **argv)
 	unsigned long int i = 0, j = 0;
         char *freqs;
 	s_string_t str = safe_string_new("Hello, world!");
-	s_string_t str2;
+	s_string_t str2, str3 = safe_string_new("world");
         s_strings_t strz;
 
 	str2 = safe_string_new("Hello, world!");
 
 	printf("str1 == str2 ? %s\n", !safe_string_case_compare_limit(str, str2, 100) ? "true" : "false");
 
-	safe_string_index_set(str2, 9, 'r');
+	safe_string_index_set(str2, 9, 'R');
 
 	printf("str1 == str2 ? %s\n", !safe_string_compare_limit(str, str2, 5) ? "true" : "false");
+
+	printf("str1(7) == str3 ? %s\n", !safe_string_substring_compare(str, str3, 15) ? "true" : "false");
+
+	printf("error? %s\n", safe_string_error() ? "yes" : "no");
 
 	safe_string_concatenate_limit(str, str2, 200);
 

@@ -69,15 +69,16 @@ inline int _safe_string_char_case_compare(char c1, char c2)
 int safe_string_case_compare_limit(s_string_t str1, s_string_t str2, unsigned long int limit)
 {
 	if(safe_string_valid(str1) && safe_string_valid(str2)) {
-		unsigned long int i = 0, diff = 0;
+		int diff = 0;
+		unsigned long int i = 0;
 
-		limit = MIN(limit, MAX(str1->s_length, str2->s_length));
-		while((i < limit) && !diff) {
+		limit = MIN(limit, MAX(safe_string_length(str1), safe_string_length(str2)));
+		while((i < limit) && !diff && !safe_string_error()) {
 			diff = _safe_string_char_case_compare(safe_string_index(str1, i), safe_string_index(str2, i));
 			i++;
 		}
 
-		safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
+		safe_string_set_error(safe_string_error_val());
 		return(diff);
 	} else {
 		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
@@ -98,7 +99,7 @@ int safe_string_case_compare_limit(s_string_t str1, s_string_t str2, unsigned lo
 int safe_string_case_compare(s_string_t str1, s_string_t str2)
 {
 	if(safe_string_valid(str1) && safe_string_valid(str2)) { /* check it's safe to access the structure */
-		return(safe_string_case_compare_limit(str1, str2, (safe_string_length(str1) < safe_string_length(str2)) ? safe_string_length(str1) : safe_string_length(str2)));
+		return(safe_string_case_compare_limit(str1, str2, MIN(safe_string_length(str1), safe_string_length(str2))));
 	} else {
 		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
 		return(SAFE_STRING_EMPTY);
