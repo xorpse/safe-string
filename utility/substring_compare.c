@@ -35,6 +35,16 @@
 #include "utility.h"
 #include "macro.h"
 
+/*!
+ * @brief Compares a substring of one string with another string using an upper
+ * limit
+ * @param str1 source string
+ * @param str2 comparison string
+ * @param offset sub-string beginning offset within source string
+ * @param offset of the maximum upper bound for the sub-string
+ * @return Positive if str1 > str2, 0 if str1 = str2, negative if str1 < str2
+ * @note Sets the error variable indicating success or failure
+ */
 int safe_string_substring_compare_limit(s_string_t str1, s_string_t str2, unsigned long int offset, unsigned long int limit)
 {
 	if(safe_string_valid(str1) && safe_string_valid(str2)) {
@@ -59,6 +69,14 @@ int safe_string_substring_compare_limit(s_string_t str1, s_string_t str2, unsign
 	}
 }
 
+/*!
+ * @brief Compares a substring of one string with another string 
+ * @param str1 source string
+ * @param str2 comparison string
+ * @param offset sub-string beginning offset within source string
+ * @return Positive if str1 > str2, 0 if str1 = str2, negative if str1 < str2
+ * @note Sets the error variable indicating success or failure
+ */
 int safe_string_substring_compare(s_string_t str1, s_string_t str2, unsigned long int offset)
 {
 	if(safe_string_valid(str1) && safe_string_valid(str2)) {
