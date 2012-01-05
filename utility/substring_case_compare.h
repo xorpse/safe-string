@@ -1,6 +1,6 @@
 /*!
- * @file utility/case_compare.h
- * @brief Header file for case independent comparison functions
+ * @file utility/substring_case_compare.c
+ * @brief Header file for comparison of substrings (where case is not considered)
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
@@ -30,34 +30,32 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UTILITY_CASE_COMPARE_H_
-#define _SAFE_STRING_UTILITY_CASE_COMPARE_H_
+#ifndef _SAFE_STRING_UTILITY_SUBSTRING_CASE_COMPARE_H_
+#define _SAFE_STRING_UTILITY_SUBSTRING_CASE_COMPARE_H_
 
 #include "types/types.h"
 
 /*!
- * @brief Compares two strings irrespective of their case with a limit
- * @param str1 string to compare
- * @param str2 string to compare
- * @param limit maximum amount of characters to compare
- * @return Computes the result of where a character indexed by str1 differs
- * from that in str2 from at most the first 'limit' characters in str1; the
- * difference is calculated from str1[i] - str2[i], where if the elements are
- * from the alphabet then they are compared using the same case 
+ * @brief Compares a substring of one string with another string using an upper
+ * limit irrespective of their case
+ * @param str1 source string
+ * @param str2 comparison string
+ * @param offset sub-string beginning offset within source string
+ * @param offset of the maximum upper bound for the sub-string
+ * @return Positive if str1 > str2, 0 if str1 = str2, negative if str1 < str2
  * @note Sets the error variable indicating success or failure
  */
-int safe_string_case_compare_limit(s_string_t, s_string_t, unsigned long int);
+extern int safe_string_substring_case_compare_limit(s_string_t str1, s_string_t str2, unsigned long int offset, unsigned long int limit);
 
 /*!
- * @brief Compares two strings irrespective of their case
- * @param str1 string to compare
- * @param str2 string to compare
- * @return Computes the result of where a character indexed by str1 differs
- * from that in str2, using all of the characters from str1; the difference
- * is calculated from str1[i] - str2[i], where if the elements are from the
- * alphabet then they are compared using the same case
+ * @brief Compares a substring of one string with another string irrespective
+ * of their case
+ * @param str1 source string
+ * @param str2 comparison string
+ * @param offset sub-string beginning offset within source string
+ * @return Positive if str1 > str2, 0 if str1 = str2, negative if str1 < str2
  * @note Sets the error variable indicating success or failure
  */
-int safe_string_case_compare(s_string_t, s_string_t);
+extern int safe_string_substring_case_compare(s_string_t str1, s_string_t str2, unsigned long int offset);
 
 #endif

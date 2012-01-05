@@ -1,7 +1,7 @@
 /*!
- * @file utility/case_compare.c
- * @brief Comparison functions irrespective of the case (assumes ASCII
- * character set)
+ * @file utility/substring_case_compare.c
+ * @brief Comparison of a string within the source string (where case is not
+ * considered)
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
@@ -56,30 +56,33 @@ static inline int _safe_string_char_case_compare(char c1, char c2)
 }
 
 /*!
- * @brief Compares two strings irrespective of their case with a limit
- * @param str1 string to compare
- * @param str2 string to compare
- * @param limit maximum amount of characters to compare
- * @return Computes the result of where a character indexed by str1 differs
- * from that in str2 from at most the first 'limit' characters in str1; the
- * difference is calculated from str1[i] - str2[i], where if the elements are
- * from the alphabet then they are compared using the same case 
+ * @brief Compares a substring of one string with another string using an upper
+ * limit irrespective of their case
+ * @param str1 source string
+ * @param str2 comparison string
+ * @param offset sub-string beginning offset within source string
+ * @param offset of the maximum upper bound for the sub-string
+ * @return Positive if str1 > str2, 0 if str1 = str2, negative if str1 < str2
  * @note Sets the error variable indicating success or failure
  */
-int safe_string_case_compare_limit(s_string_t str1, s_string_t str2, unsigned long int limit)
+int safe_string_substring_case_compare_limit(s_string_t str1, s_string_t str2, unsigned long int offset, unsigned long int limit)
 {
 	if(safe_string_valid(str1) && safe_string_valid(str2)) {
-		int diff = 0;
-		unsigned long int i = 0;
+		if(safe_string_length(str1) > offset && limit >= offset) {
+			int diff = 0;
+			unsigned long int i = 0;
+			limit = MIN(limit, MAX(safe_string_length(str1), safe_string_length(str2) + offset));
 
-		limit = MIN(limit, MAX(safe_string_length(str1), safe_string_length(str2)));
-		while((i < limit) && !diff && !safe_string_error()) {
-			diff = _safe_string_char_case_compare(safe_string_index(str1, i), safe_string_index(str2, i));
-			i++;
+			while((offset < limit) && !diff && !safe_string_error()) {
+				diff = _safe_string_char_case_compare(safe_string_index(str1, offset++), safe_string_index(str2, i++));
+			}
+
+			safe_string_set_error(safe_string_error());
+			return(diff);
+		} else {
+			safe_string_set_error(SAFE_STRING_ERROR_INVALID_ARG);
+			return(SAFE_STRING_EMPTY);
 		}
-
-		safe_string_set_error(safe_string_error_val());
-		return(diff);
 	} else {
 		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
 		return(SAFE_STRING_EMPTY);
@@ -87,19 +90,18 @@ int safe_string_case_compare_limit(s_string_t str1, s_string_t str2, unsigned lo
 }
 
 /*!
- * @brief Compares two strings irrespective of their case
- * @param str1 string to compare
- * @param str2 string to compare
- * @return Computes the result of where a character indexed by str1 differs
- * from that in str2, using all of the characters from str1; the difference
- * is calculated from str1[i] - str2[i], where if the elements are from the
- * alphabet then they are compared using the same case
+ * @brief Compares a substring of one string with another string irrespective
+ * of their case
+ * @param str1 source string
+ * @param str2 comparison string
+ * @param offset sub-string beginning offset within source string
+ * @return Positive if str1 > str2, 0 if str1 = str2, negative if str1 < str2
  * @note Sets the error variable indicating success or failure
  */
-int safe_string_case_compare(s_string_t str1, s_string_t str2)
+int safe_string_substring_case_compare(s_string_t str1, s_string_t str2, unsigned long int offset)
 {
-	if(safe_string_valid(str1) && safe_string_valid(str2)) { /* check it's safe to access the structure */
-		return(safe_string_case_compare_limit(str1, str2, MIN(safe_string_length(str1), safe_string_length(str2))));
+	if(safe_string_valid(str1) && safe_string_valid(str2)) {
+		return(safe_string_substring_case_compare_limit(str1, str2, offset, MIN(safe_string_length(str1), safe_string_length(str2) + offset)));
 	} else {
 		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
 		return(SAFE_STRING_EMPTY);
