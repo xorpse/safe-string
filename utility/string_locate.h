@@ -1,6 +1,6 @@
 /*!
- * @file utility.h
- * @brief Main header grouping all of the utility functions
+ * @file utility/string_locate.h
+ * @brief Header file for string locating functions
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
@@ -30,20 +30,14 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UTILITY_H_
-#define _SAFE_STRING_UTILITY_H_
+#ifndef _SAFE_STRING_UTILITY_STRING_LOCATE_H_
+#define _SAFE_STRING_UTILITY_STRING_LOCATE_H_
 
-#include "utility/index.h" 
-#include "utility/compare.h" 
-#include "utility/case_compare.h" 
-#include "utility/length.h" 
-#include "utility/concatenate.h" 
-#include "utility/copy.h" 
-#include "utility/chunk_split.h"
-#include "utility/count_chars.h"
-#include "utility/substring_compare.h"
-#include "utility/substring_case_compare.h"
-#include "utility/substring.h"
-#include "utility/string_locate.h"
+#include "types/types.h"
+
+extern unsigned long int safe_string_string_locate_offset_limit(s_string_t, s_string_t, unsigned long int, unsigned long int);
+extern unsigned long int safe_string_string_locate_limit(s_string_t, s_string_t, unsigned long int);
+extern unsigned long int safe_string_string_locate_offset(s_string_t, s_string_t, unsigned long int);
+extern unsigned long int safe_string_string_locate(s_string_t, s_string_t);
 
 #endif

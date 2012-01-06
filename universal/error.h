@@ -42,7 +42,8 @@ typedef enum { \
 	SAFE_STRING_ERROR_MEM_ALLOC /*!< Couldn't allocate memory and thus could not continue execution of the function */, \
 	SAFE_STRING_ERROR_NULL_POINTER /*!< A NULL pointer was passed to the function and it couldn't be handled */, \
 	SAFE_STRING_ERROR_INDEX_BOUNDS /*!< An attempt was made to access memory outside of the defined boundaries */, \
-	SAFE_STRING_ERROR_BAD_VALUE /*!< An invalid value was produced/taken */ \
+	SAFE_STRING_ERROR_BAD_VALUE /*!< An invalid value was produced/taken */, \
+	SAFE_STRING_ERROR_INVALID_RETURN /*!< The return value isn't valid - assume the function couldn't perform the task - i.e. a value could not be found, etc. */ \
 } s_string_error_t;
 
 /*!

@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 #include "universal.h"
 #include "utility.h"
 #include "types/types.h"
@@ -23,6 +22,10 @@ int main(int argc, char **argv)
 	printf("str1(7) == str3 ? %s\n", !safe_string_substring_case_compare(str, str3, 7) ? "true" : "false");
 
 	printf("error? %s\n", safe_string_error() ? "yes" : "no");
+
+	s_string_t str4 = safe_string_substring(str, 7, 11);
+
+	printf("%lu\n", safe_string_string_locate_offset(str, str4, 8));
 
 	safe_string_concatenate_limit(str, str2, 200);
 

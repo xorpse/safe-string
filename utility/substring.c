@@ -1,6 +1,6 @@
 /*!
- * @file utility.h
- * @brief Main header grouping all of the utility functions
+ * @file utility/substring.c
+ * @brief Returns a substring of a string
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
@@ -30,20 +30,56 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UTILITY_H_
-#define _SAFE_STRING_UTILITY_H_
+#include <stdlib.h>
+#include "types/types.h"
+#include "universal.h"
+#include "utility.h"
+#include "macro.h"
 
-#include "utility/index.h" 
-#include "utility/compare.h" 
-#include "utility/case_compare.h" 
-#include "utility/length.h" 
-#include "utility/concatenate.h" 
-#include "utility/copy.h" 
-#include "utility/chunk_split.h"
-#include "utility/count_chars.h"
-#include "utility/substring_compare.h"
-#include "utility/substring_case_compare.h"
-#include "utility/substring.h"
-#include "utility/string_locate.h"
+s_string_t safe_string_substring(s_string_t str, unsigned long int offset, unsigned long int limit)
+{
+	if(safe_string_valid(str)) {
+		if(offset < safe_string_length(str) && offset <= limit) {
+			limit = MIN(safe_string_length(str), limit);
 
-#endif
+			if(limit - offset) {
+				char *string = (char *)calloc((limit - offset) + 1, sizeof(char));
+
+				if(string) {
+					unsigned int i = 0;
+					s_string_t retn;
+
+					while(offset <= limit) {
+						string[i++] = safe_string_index(str, offset++);
+					}
+
+					retn = safe_string_new(string);
+					free(string);
+
+					return(retn); /* use the error code from safe_string_new */
+				} else {
+					safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
+					return(SAFE_STRING_INVALID);
+				}
+			} else {
+				return(safe_string_new(SAFE_STRING_INVALID));
+			}
+		} else {
+			safe_string_set_error(SAFE_STRING_ERROR_INVALID_ARG);
+			return(SAFE_STRING_INVALID);
+		}
+	} else {
+		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
+		return(SAFE_STRING_INVALID);
+	}
+}
+
+s_string_t safe_string_substring_auto(s_string_t str, unsigned long int offset)
+{
+	if(safe_string_valid(str)) {
+		return(safe_string_substring(str, offset, safe_string_length(str)));
+	} else {
+		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
+		return(SAFE_STRING_INVALID);
+	}
+}
