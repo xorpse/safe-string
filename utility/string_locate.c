@@ -4,7 +4,7 @@
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
- * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+ * Copyright (c) 2012 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -35,22 +35,39 @@
 #include "utility.h"
 #include "macro.h"
 
+/*!
+ * @brief Finds the offset of a substring of a given string between a lower
+ * and upper bound.
+ * @param haystack source string
+ * @param needle string to find
+ * @param offset starting offset to search from
+ * @param limit ending offset to search to
+ * @return The index of the first letter of the first occurance of the string
+ * to be found within the source string. If the string is not found then
+ * the error value is set to SAFE_STRING_INVALID_RETURN and 0 is returned.
+ * @note The error value is set indicating success or failure.
+ */
 unsigned long int safe_string_string_locate_offset_limit(s_string_t haystack, s_string_t needle, unsigned long int offset, unsigned long int limit)
 {
 	if(safe_string_valid(haystack) && safe_string_valid(needle)) {
-		unsigned long int search_limit = limit - safe_string_length(needle);
+		if(offset < safe_string_length(haystack) && limit <= safe_string_length(haystack) && offset <= limit) {
+			unsigned long int search_limit = limit - safe_string_length(needle);
 
-		if(search_limit < limit) { /* only fails if length of needle was greater than limit or the string is nothing */
-			while(offset < limit) {
-				if(!safe_string_substring_compare(haystack, needle, offset)) {
-					safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
-					return(offset);
+			if(search_limit < limit) { /* only fails if length of needle was greater than limit or the string is nothing */
+				while(offset < limit) {
+					if(!safe_string_substring_compare(haystack, needle, offset)) {
+						safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
+						return(offset);
+					}
+					offset++;
 				}
-				offset++;
+				
+				safe_string_set_error(SAFE_STRING_ERROR_INVALID_RETURN);
+				return(SAFE_STRING_EMPTY);
+			} else {
+				safe_string_set_error(SAFE_STRING_ERROR_INVALID_ARG);
+				return(SAFE_STRING_EMPTY);
 			}
-			
-			safe_string_set_error(SAFE_STRING_ERROR_INVALID_RETURN);
-			return(SAFE_STRING_EMPTY);
 		} else {
 			safe_string_set_error(SAFE_STRING_ERROR_INVALID_ARG);
 			return(SAFE_STRING_EMPTY);
@@ -61,11 +78,31 @@ unsigned long int safe_string_string_locate_offset_limit(s_string_t haystack, s_
 	}
 }
 
+/*!
+ * @brief Finds the offset of a substring of a given string using an upper bound.
+ * @param haystack source string
+ * @param needle string to find
+ * @param limit ending offset to search to
+ * @return The index of the first letter of the first occurance of the string
+ * to be found within the source string. If the string is not found then
+ * the error value is set to SAFE_STRING_INVALID_RETURN and 0 is returned.
+ * @note The error value is set indicating success or failure.
+ */
 unsigned long int safe_string_string_locate_limit(s_string_t haystack, s_string_t needle, unsigned long int limit)
 {
 	return(safe_string_string_locate_offset_limit(haystack, needle, 0, limit));
 }
 
+/*!
+ * @brief Finds the offset of a substring of a given string using a lower bound.
+ * @param haystack source string
+ * @param needle string to find
+ * @param offset starting offset to search from
+ * @return The index of the first letter of the first occurance of the string
+ * to be found within the source string. If the string is not found then
+ * the error value is set to SAFE_STRING_INVALID_RETURN and 0 is returned.
+ * @note The error value is set indicating success or failure.
+ */
 unsigned long int safe_string_string_locate_offset(s_string_t haystack, s_string_t needle, unsigned long int offset)
 {
 	if(safe_string_valid(haystack)) {
@@ -76,6 +113,15 @@ unsigned long int safe_string_string_locate_offset(s_string_t haystack, s_string
 	}
 }
 
+/*!
+ * @brief Finds the offset of a substring of a given string.
+ * @param haystack source string
+ * @param needle string to find
+ * @return The index of the first letter of the first occurance of the string
+ * to be found within the source string. If the string is not found then
+ * the error value is set to SAFE_STRING_INVALID_RETURN and 0 is returned.
+ * @note The error value is set indicating success or failure.
+ */
 unsigned long int safe_string_string_locate(s_string_t haystack, s_string_t needle)
 {
 	return(safe_string_string_locate_offset(haystack, needle, 0));

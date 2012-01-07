@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 
 	s_string_t str4 = safe_string_substring(str, 7, 11);
 
-	printf("%lu\n", safe_string_string_locate_offset(str, str4, 8));
+	printf("%lu\n", safe_string_string_locate(str, str4));
 
 	safe_string_concatenate_limit(str, str2, 200);
 

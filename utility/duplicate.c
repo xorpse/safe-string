@@ -1,6 +1,6 @@
 /*!
- * @file utility.h
- * @brief Main header grouping all of the utility functions
+ * @file utility/duplicate.c
+ * @brief Function for duplicating a valid safe string.
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
@@ -30,21 +30,31 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UTILITY_H_
-#define _SAFE_STRING_UTILITY_H_
+#include "types/types.h"
+#include "universal.h"
+#include "utility.h"
+#include "macro.h"
 
-#include "utility/index.h" 
-#include "utility/compare.h" 
-#include "utility/case_compare.h" 
-#include "utility/length.h" 
-#include "utility/concatenate.h" 
-#include "utility/copy.h" 
-#include "utility/chunk_split.h"
-#include "utility/count_chars.h"
-#include "utility/substring_compare.h"
-#include "utility/substring_case_compare.h"
-#include "utility/substring.h"
-#include "utility/string_locate.h"
-#include "utility/string_contains.h"
+/*!
+ * @brief Creates a duplicate of a valid safe string.
+ * @param source string
+ * @return A valid safe string given there were no errors in the input or processing
+ * otherwise SAFE_STRING_INVALID.
+ * @note Sets the error value indicating success or failure.
+ */
+s_string_t safe_string_duplicate(s_string_t str)
+{
+	if(safe_string_valid(str)) {
+		char *retn = safe_string_access_characters(str);
 
-#endif
+		if(!safe_string_error()) {
+			safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
+			return(safe_string_new(retn));
+		} else {
+			return(SAFE_STRING_INVALID);
+		}
+	} else {
+		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
+		return(SAFE_STRING_INVALID);
+	}
+}

@@ -1,6 +1,7 @@
 /*!
- * @file utility.h
- * @brief Main header grouping all of the utility functions
+ * @file universal/access.h
+ * @brief Header file for providing an interface for accessing the data stored
+ * within a safe string.
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
@@ -30,21 +31,13 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UTILITY_H_
-#define _SAFE_STRING_UTILITY_H_
+#ifndef _SAFE_STRING_UNIVERSAL_ACCESS_H_
+#define _SAFE_STRING_UNIVERSAL_ACCESS_H_
 
-#include "utility/index.h" 
-#include "utility/compare.h" 
-#include "utility/case_compare.h" 
-#include "utility/length.h" 
-#include "utility/concatenate.h" 
-#include "utility/copy.h" 
-#include "utility/chunk_split.h"
-#include "utility/count_chars.h"
-#include "utility/substring_compare.h"
-#include "utility/substring_case_compare.h"
-#include "utility/substring.h"
-#include "utility/string_locate.h"
-#include "utility/string_contains.h"
+#include "types/types.h"
+
+extern const char *safe_string_access_characters(s_string_t, unsigned long int *);
+
+extern char *safe_string_access_characters_duplicate(s_string_t, unsigned long int *);
 
 #endif

@@ -4,7 +4,7 @@
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
- * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+ * Copyright (c) 2012 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,26 @@
 
 #include "types/types.h"
 
+/*!
+ * @brief Extracts a string from within another string.
+ * @param str source string
+ * @param offset starting index for extraction
+ * @param limit ending index for extraction
+ * @return A safe string containing the substring defined by the bounaries 'offset'
+ * and 'limit'.
+ * @note Sets the error value indicating success or failure.
+ */
 extern s_string_t safe_string_substring(s_string_t str, unsigned long int, unsigned long int);
+
+/*!
+ * @brief Extracts a string from within another string. Using only a starting position,
+ * extraction is performed using the length of the string as an upper bound.
+ * @param str source string
+ * @param offset starting index for extraction
+ * @return A safe string containing the substring defined by the bounary 'offset'
+ * and the length of the source string.
+ * @note Sets the error value indicating success or failure.
+ */
 extern s_string_t safe_string_substring_auto(s_string_t str, unsigned long int);
 
 #endif

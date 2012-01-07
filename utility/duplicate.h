@@ -1,6 +1,6 @@
 /*!
- * @file utility.h
- * @brief Main header grouping all of the utility functions
+ * @file utility/duplicate.h
+ * @brief Header file for duplicating a valid safe string.
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
@@ -30,21 +30,18 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UTILITY_H_
-#define _SAFE_STRING_UTILITY_H_
+#ifndef _SAFE_STRING_UTILITY_DUPLICATE_H_
+#define _SAFE_STRING_UTILITY_DUPLICATE_H_
 
-#include "utility/index.h" 
-#include "utility/compare.h" 
-#include "utility/case_compare.h" 
-#include "utility/length.h" 
-#include "utility/concatenate.h" 
-#include "utility/copy.h" 
-#include "utility/chunk_split.h"
-#include "utility/count_chars.h"
-#include "utility/substring_compare.h"
-#include "utility/substring_case_compare.h"
-#include "utility/substring.h"
-#include "utility/string_locate.h"
-#include "utility/string_contains.h"
+#include "types/types.h"
+
+/*!
+ * @brief Creates a duplicate of a valid safe string.
+ * @param source string
+ * @return A valid safe string given there were no errors in the input or processing
+ * otherwise SAFE_STRING_INVALID.
+ * @note Sets the error value indicating success or failure.
+ */
+extern s_string_t safe_string_duplicate(s_string_t);
 
 #endif
