@@ -95,7 +95,7 @@ s_string_t safe_string_substring(s_string_t str, unsigned long int offset, unsig
 s_string_t safe_string_substring_auto(s_string_t str, unsigned long int offset)
 {
 	if(safe_string_valid(str)) {
-		return(safe_string_substring(str, offset, safe_string_length(str)));
+		return(safe_string_substring(str, offset, safe_string_length(str) + 1));
 	} else {
 		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
 		return(SAFE_STRING_INVALID);
