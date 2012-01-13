@@ -31,6 +31,13 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <stdlib.h>
+#include "types/types.h"
+#include "utility.h"
+#include "universal.h"
+#include "macro.h"
+
+/*
 s_strings_t safe_string_split_limit_char(s_string_t str, const char *delim, unsigned long int elements, unsigned long int *count)
 {
 	s_string_t temp = safe_string_new(delim);
@@ -40,8 +47,8 @@ s_strings_t safe_string_split_limit_char(s_string_t str, const char *delim, unsi
 	safe_string_set_error(error);
 	return(retn);
 }
-
-s_strings_t safe_string_split_limit(s_string_t str, s_string_ delim, unsigned long int elements, unsigned long int *count)
+*/
+s_strings_t safe_string_split_limit(s_string_t str, s_string_t delim, unsigned long int elements, unsigned long int *count)
 {
 	if(safe_string_valid(str) && safe_string_valid(delim)) {
 		if(safe_string_length(delim) < safe_string_length(str)) {
@@ -69,21 +76,45 @@ s_strings_t safe_string_split_limit(s_string_t str, s_string_ delim, unsigned lo
 
 				if(retn) {
 
-					for(i = 0; i < found; i++, j = offsets[i] + safe_string_length(delim)) {
-						retn[i] = safe_string_substring(str, j, offsets[i]);
+					if(found) {
+						for(i = 0; i < found; i++, j = offsets[i] + safe_string_length(delim)) {
+							retn[i] = safe_string_substring(str, j, offsets[i]);
+						}
+
+						retn[i++] = safe_string_substring(str, j, safe_string_length(str)); /* always needed */
+
+						if(realloc(retn, i * sizeof(s_string_t))) {
+							free(offsets);
+							*count = i;
+							safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
+							return(retn);
+						} else {
+							*count = SAFE_STRING_EMPTY;
+							free(offsets);
+							safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
+							return(SAFE_STRING_INVALID);
+						}
+					
+					} else {
+						s_strings_t retn = (s_strings_t)calloc(1, sizeof(s_string_t));
+
+						retn[0] = safe_string_new(safe_string_access_characters(str, SAFE_STRING_INVALID));
+						if(retn[0]) {
+							free(offsets);
+							*count = 1;
+							safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
+							return(retn); /* this is the case where we don't need to split */
+						} else {
+							free(offsets);
+							free(retn);
+							*count = SAFE_STRING_EMPTY;
+							safe_string_set_error(SAFE_STRING_ERROR_MEM_ALLOC);
+							return(SAFE_STRING_INVALID);
+						}
 					}
-
-					retn[i++] = safe_string_substring(str, j, safe_string_length(str)); /* always needed */
-
-					if(realloc(retn, i * sizeof(s_string_t))) {
-						free(offsets)
-						*count = i;
-						safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
-						return(retn);
 				} else {
-					*count = SAFE_STRING_EMPTY;
 					free(offsets);
-					safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
+					safe_string_set_error(SAFE_STRING_ERROR_MEM_ALLOC);
 					return(SAFE_STRING_INVALID);
 				}
 			} else {
@@ -91,31 +122,15 @@ s_strings_t safe_string_split_limit(s_string_t str, s_string_ delim, unsigned lo
 				return(SAFE_STRING_INVALID);
 			}
 		} else {
-			s_strings_t retn = (s_strings_t)calloc(1, sizeof(s_string_t));
-			if(retn) {
-				retn[0] = safe_string_new(safe_string_access_characters(str));
-				if(retn[0]) {
-					*count = 1;
-					safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
-					return(retn); /* this is the case where we don't need to split */
-				} else {
-					free(retn);
-					*count = SAFE_STRING_EMPTY;
-					safe_string_set_error(SAFE_STRING_ERROR_MEM_ALLOC);
-					return(SAFE_STRING_INVALID);
-				}
-			} else {
-				*count = SAFE_STRING_EMPTY;
-				safe_string_set_error(SAFE_STRING_MEM_ALLOC);
-				return(SAFE_STRING_INVALID);
-			}
+			safe_string_set_error(SAFE_STRING_ERROR_INVALID_ARG);
+			return(SAFE_STRING_INVALID);
 		}
 	} else {
 		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
 		return(SAFE_STRING_INVALID);
 	}
 }
-
+/*
 s_strings_t safe_string_split_char(s_string_t str, const char *delim, unsigned long int *count)
 {
 	s_string_t temp = safe_string_new(delim);
@@ -128,7 +143,5 @@ s_strings_t safe_string_split_char(s_string_t str, const char *delim, unsigned l
 
 s_strings_t safe_string_split(s_string_t str, s_string_t delim)
 {
-	/*
-	   ...
-	 */
 }
+*/

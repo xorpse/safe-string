@@ -31,6 +31,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <stdlib.h>
 #include "types/types.h"
 #include "universal.h"
 #include "utility.h"
@@ -40,7 +41,9 @@ const char *safe_string_access_characters(s_string_t str, unsigned long int *cou
 {
 	if(safe_string_valid(str)) {
 		safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
-		*count = safe_string_length(str);
+		if(count) {
+			*count = safe_string_length(str);
+		}
 		return(str->s_string);
 	} else {
 		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
@@ -62,6 +65,9 @@ char *safe_string_access_characters_duplicate(s_string_t str, unsigned long int 
 			}
 
 			if(!safe_string_error()) {
+				if(count) {
+					*count = i;
+				}
 				safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
 				return(retn);
 			} else {
@@ -76,4 +82,4 @@ char *safe_string_access_characters_duplicate(s_string_t str, unsigned long int 
 		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
 		return(SAFE_STRING_INVALID);
 	}
-}
+
