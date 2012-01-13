@@ -47,5 +47,6 @@
 #include "utility/string_locate.h"
 #include "utility/string_contains.h"
 #include "utility/access.h"
+#include "utility/split.h"
 
 #endif

@@ -58,7 +58,7 @@ s_string_t safe_string_substring(s_string_t str, unsigned long int offset, unsig
 					unsigned int i = 0;
 					s_string_t retn;
 
-					while(offset <= limit) {
+					while(offset < limit) {
 						string[i++] = safe_string_index(str, offset++);
 					}
 

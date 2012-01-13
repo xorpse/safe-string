@@ -1,7 +1,7 @@
 /*!
- * @file utility/access.c
- * @brief Provides an interface for accessing the data stored within a
- * safe string.
+ * @file utility/split.h
+ * @brief Header file for string splitter (similar to PHP's split
+ * function)
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
@@ -31,52 +31,6 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
 #include "types/types.h"
-#include "universal.h"
-#include "utility.h"
-#include "macro.h"
 
-const char *safe_string_access_characters(s_string_t str, unsigned long int *count)
-{
-	if(safe_string_valid(str)) {
-		safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
-		if(count) {
-			*count = safe_string_length(str);
-		}
-		return(str->s_string);
-	} else {
-		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
-		return(SAFE_STRING_INVALID);
-	}
-}
-
-char *safe_string_access_characters_duplicate(s_string_t str, unsigned long int *count)
-{
-	if(safe_string_valid(str) && count) {
-		char *retn = (char *)calloc(str->s_length, sizeof(char));
-
-		if(retn) {
-			unsigned long int i = 0;
-
-			for(i = 0; i < safe_string_length(str); i++) {
-				retn[i] = safe_string_index(str, i);
-			}
-
-			if(!safe_string_error()) {
-				safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
-				*count = safe_string_length(str);
-				return(retn);
-			} else {
-				free(retn); /* carry the error value */
-				return(SAFE_STRING_INVALID);
-			}
-		} else {
-			safe_string_set_error(SAFE_STRING_ERROR_MEM_ALLOC);
-			return(SAFE_STRING_INVALID);
-		}
-	} else {
-		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
-		return(SAFE_STRING_INVALID);
-	}
-}
+extern s_strings_t safe_string_split_limit(s_string_t, s_string_t, unsigned long int, unsigned long int *);

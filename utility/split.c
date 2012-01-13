@@ -31,37 +31,43 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <stdlib.h>
+#include "types/types.h"
+#include "utility.h"
+#include "universal.h"
+#include "macro.h"
+/*
 s_strings_t safe_string_split_limit_char(s_string_t str, const char *delim, unsigned long int elements, unsigned long int *count)
 {
 	s_string_t temp = safe_string_new(delim);
-	s_strings_t retn = safe_string_split_limit(str, temp, elements);
+	s_strings_t retn = safe_string_split_limit(str, temp, elements, count);
 	s_string_error_t error = safe_string_error_val();
 	safe_string_delete(temp);
 	safe_string_set_error(error);
 	return(retn);
 }
+*/
 
-s_strings_t safe_string_split_limit(s_string_t str, s_string_ delim, unsigned long int elements, unsigned long int *count)
+s_strings_t safe_string_split_limit(s_string_t str, s_string_t delim, unsigned long int elements, unsigned long int *count)
 {
-	if(safe_string_valid(str) && safe_string_valid(delim)) {
+	if(safe_string_valid(str) && safe_string_valid(delim) && count) {
 		if(safe_string_length(delim) < safe_string_length(str)) {
-			unsigned long int i = 0, j = 0, limit = safe_string_length(str) - safe_string_length(delim), found = 0;
+			unsigned long int i = 0, j = 0, limit = safe_string_length(str) / safe_string_length(delim), found = 0;
 			unsigned long int *offsets = (unsigned long int *)malloc(sizeof(unsigned long int) * limit);
 
 			if(offsets) {
 				while((i < limit) && ((found < elements) || !elements)) { /* if elements = 0, then we don't care how many we find */
 					offsets[found] = safe_string_string_locate_offset(str, delim, i);
+
 					if(safe_string_error()) {
 						if(safe_string_error_val() != SAFE_STRING_ERROR_INVALID_RETURN) {
 							free(offsets);
 							return(SAFE_STRING_INVALID);
 						} else {
-							found++;
 							break;
 						}
 					} else {
-						found++;
-						i += safe_string_length(delim);
+						i = offsets[found++] + safe_string_length(delim) ;
 					}
 				}
 
@@ -69,21 +75,27 @@ s_strings_t safe_string_split_limit(s_string_t str, s_string_ delim, unsigned lo
 
 				if(retn) {
 
-					for(i = 0; i < found; i++, j = offsets[i] + safe_string_length(delim)) {
+					for(i = 0; i < found; j = offsets[i] + safe_string_length(delim), i++) {
 						retn[i] = safe_string_substring(str, j, offsets[i]);
+						printf("(%lu,%lu)\n", j, offsets[i]);
 					}
 
 					retn[i++] = safe_string_substring(str, j, safe_string_length(str)); /* always needed */
 
 					if(realloc(retn, i * sizeof(s_string_t))) {
-						free(offsets)
+						free(offsets);
 						*count = i;
 						safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
 						return(retn);
+					} else {
+						*count = SAFE_STRING_EMPTY;
+						free(offsets);
+						safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
+						return(SAFE_STRING_INVALID);
+					}
 				} else {
-					*count = SAFE_STRING_EMPTY;
 					free(offsets);
-					safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
+					safe_string_set_error(SAFE_STRING_ERROR_MEM_ALLOC);
 					return(SAFE_STRING_INVALID);
 				}
 			} else {
@@ -93,7 +105,8 @@ s_strings_t safe_string_split_limit(s_string_t str, s_string_ delim, unsigned lo
 		} else {
 			s_strings_t retn = (s_strings_t)calloc(1, sizeof(s_string_t));
 			if(retn) {
-				retn[0] = safe_string_new(safe_string_access_characters(str));
+				unsigned long int chars;
+				retn[0] = safe_string_new(safe_string_access_characters(str, &chars));
 				if(retn[0]) {
 					*count = 1;
 					safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
@@ -104,9 +117,9 @@ s_strings_t safe_string_split_limit(s_string_t str, s_string_ delim, unsigned lo
 					safe_string_set_error(SAFE_STRING_ERROR_MEM_ALLOC);
 					return(SAFE_STRING_INVALID);
 				}
-			} else {
+			} else 	{
 				*count = SAFE_STRING_EMPTY;
-				safe_string_set_error(SAFE_STRING_MEM_ALLOC);
+				safe_string_set_error(SAFE_STRING_ERROR_MEM_ALLOC);
 				return(SAFE_STRING_INVALID);
 			}
 		}
@@ -115,7 +128,7 @@ s_strings_t safe_string_split_limit(s_string_t str, s_string_ delim, unsigned lo
 		return(SAFE_STRING_INVALID);
 	}
 }
-
+/*
 s_strings_t safe_string_split_char(s_string_t str, const char *delim, unsigned long int *count)
 {
 	s_string_t temp = safe_string_new(delim);
@@ -128,7 +141,5 @@ s_strings_t safe_string_split_char(s_string_t str, const char *delim, unsigned l
 
 s_strings_t safe_string_split(s_string_t str, s_string_t delim)
 {
-	/*
-	   ...
-	 */
 }
+*/

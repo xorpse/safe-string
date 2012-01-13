@@ -5,13 +5,21 @@
 
 int main(int argc, char **argv)
 {
-	unsigned long int i = 0, j = 0;
+	unsigned long int i = 0, j = 0, count = 0;
         char *freqs;
 	s_string_t str = safe_string_new("Hello, world!");
 	s_string_t str2, str3 = safe_string_new("WorLd");
         s_strings_t strz;
 
 	str2 = safe_string_new("Hello, world!");
+	s_string_t delim = safe_string_new("z");
+
+	strz = safe_string_split_limit(str2, delim, 10, &count);
+
+	for(i = 0; i < count; i++) {
+		const char *s = safe_string_access_characters(strz[i], &j);
+		printf("%s\n", s ? s : "null");
+	}
 
 	printf("str1 == str2 ? %s\n", !safe_string_case_compare_limit(str, str2, 100) ? "true" : "false");
 
@@ -31,14 +39,20 @@ int main(int argc, char **argv)
 
 	safe_string_copy(str, str2);
 
+	safe_string_array_delete(strz, count);
+	
 	strz = safe_string_chunk_split(str2, 2, NULL, &i);
 
 	j = i;
 
 	printf("%d %d\n", safe_string_error(), i);
 
-	while(i) {
-		printf("%s", strz[--i]->s_string);
+	for(i = 0; i < j; i++) {
+		if(strz[i]->s_string) {
+			printf("%s\n", strz[i]->s_string);
+		} else {
+			printf("null\n");
+		}
 	}
 	printf("buffer: %s\nlength: %lu\n", str->s_string, safe_string_length(str));
 

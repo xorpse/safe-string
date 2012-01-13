@@ -3,7 +3,7 @@ CFLAGS= -Wall
 INCLUDE=-I.
 
 UTILITY_OBJS=utility/index.o utility/length.o utility/compare.o utility/case_compare.o utility/concatenate.o utility/copy.o utility/chunk_split.o utility/count_chars.o \
-	     utility/crc32.o utility/substring_compare.o utility/substring_case_compare.o utility/substring.o utility/string_locate.o
+	     utility/crc32.o utility/substring_compare.o utility/substring_case_compare.o utility/substring.o utility/string_locate.o utility/access.o utility/split.o
 UNIVERSAL_OBJS=universal/allocate.o universal/error.o
 
 OBJS=$(UTILITY_OBJS) $(UNIVERSAL_OBJS)
