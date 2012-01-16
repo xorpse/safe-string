@@ -48,4 +48,18 @@ typedef struct _s_string_t _s_string_t; /*!< Internal base string type */
 typedef struct _s_string_t *s_string_t; /*!< Base string type */
 typedef s_string_t *s_strings_t; /*!< Array of strings type */
 
+/*!
+ * @brief Macro to test validity of a safe string variable
+ * @param s source string
+ * @return Boolean value of true if valid, else false
+ */
+#define safe_string_valid(s) ((s) && (s)->s_string)
+
+/*!
+ * @brief Function to test if an array of safe string variables is valid
+ * @param strs array of source strings
+ * @param count the number of strings in the array
+ */
+extern int safe_strings_valid(s_strings_t, unsigned long int);
+
 #endif
