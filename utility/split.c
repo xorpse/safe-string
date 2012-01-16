@@ -36,18 +36,17 @@
 #include "utility.h"
 #include "universal.h"
 #include "macro.h"
-/*
-s_strings_t safe_string_split_limit_char(s_string_t str, const char *delim, unsigned long int elements, unsigned long int *count)
-{
-	s_string_t temp = safe_string_new(delim);
-	s_strings_t retn = safe_string_split_limit(str, temp, elements, count);
-	s_string_error_t error = safe_string_error_val();
-	safe_string_delete(temp);
-	safe_string_set_error(error);
-	return(retn);
-}
-*/
 
+/*!
+ * @brief Splits a string based upon a delimeter into at most 'elements' strings
+ * @param str source string to split
+ * @param delim delimeter to split on
+ * @param elements the amount of times (at most) to split (can be 0, if this is the case we treat elements as infinite)
+ * @param count the amount of strings to be returned
+ * @return Strings containing the split substrings of the source string, some elements may be NULL where the delimeter has
+ * repeated, or where there was no string before or after. (Should be checked by caller).
+ * @note Error value is set to indicate success or failure.
+ */
 s_strings_t safe_string_split_limit(s_string_t str, s_string_t delim, unsigned long int elements, unsigned long int *count)
 {
 	if(safe_string_valid(str) && safe_string_valid(delim) && count) {
@@ -77,7 +76,6 @@ s_strings_t safe_string_split_limit(s_string_t str, s_string_t delim, unsigned l
 
 					for(i = 0; i < found; j = offsets[i] + safe_string_length(delim), i++) {
 						retn[i] = safe_string_substring(str, j, offsets[i]);
-						printf("(%lu,%lu)\n", j, offsets[i]);
 					}
 
 					retn[i++] = safe_string_substring(str, j, safe_string_length(str)); /* always needed */
@@ -128,18 +126,56 @@ s_strings_t safe_string_split_limit(s_string_t str, s_string_t delim, unsigned l
 		return(SAFE_STRING_INVALID);
 	}
 }
-/*
-s_strings_t safe_string_split_char(s_string_t str, const char *delim, unsigned long int *count)
+
+/*!
+ * @brief Splits the string using a C string delimeter
+ * @param str source string
+ * @param delim C string delimeter to split on
+ * @param element the amount of splits to perform
+ * @param count stores the amount of strings created from splitting
+ * @return Strings containing the split substrings of the source string, some elements may be NULL where the delimeter has
+ * repeated, or where there was no string before or after. (Should be checked by caller).
+ * @note Error value is set to indicate success or failure.
+ */
+s_strings_t safe_string_split_limit_char(s_string_t str, const char *delim, unsigned long int elements, unsigned long int *count)
 {
 	s_string_t temp = safe_string_new(delim);
-	s_strings_t retn = safe_string_split(str, temp);
+	s_strings_t retn = safe_string_split_limit(str, temp, elements, count);
 	s_string_error_t error = safe_string_error_val();
 	safe_string_delete(temp);
 	safe_string_set_error(error);
 	return(retn);
 }
 
-s_strings_t safe_string_split(s_string_t str, s_string_t delim)
+/*!
+ * @brief Splits the string using a C string delimeter with no limit to amount of splits
+ * @param str source string
+ * @param delim C string delimeter to split on
+ * @param count stores the amount of strings created from splitting
+ * @return Strings containing the split substrings of the source string, some elements may be NULL where the delimeter has
+ * repeated, or where there was no string before or after. (Should be checked by caller).
+ * @note Error value is set to indicate success or failure.
+ */
+s_strings_t safe_string_split_char(s_string_t str, const char *delim, unsigned long int *count)
 {
+	s_string_t temp = safe_string_new(delim);
+	s_strings_t retn = safe_string_split_limit(str, temp, 0, count);
+	s_string_error_t error = safe_string_error_val();
+	safe_string_delete(temp);
+	safe_string_set_error(error);
+	return(retn);
 }
-*/
+
+/*!
+ * @brief Splits the string using a delimeter with no limit on amount of splits
+ * @param str source string
+ * @param delim C string delimeter to split on
+ * @param count stores the amount of strings created from splitting
+ * @return Strings containing the split substrings of the source string, some elements may be NULL where the delimeter has
+ * repeated, or where there was no string before or after. (Should be checked by caller).
+ * @note Error value is set to indicate success or failure.
+ */
+s_strings_t safe_string_split(s_string_t str, s_string_t delim, unsigned long int *count)
+{
+	return(safe_string_split_limit(str, delim, 0, count));
+}

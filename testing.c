@@ -11,13 +11,16 @@ int main(int argc, char **argv)
 	s_string_t str2, str3 = safe_string_new("WorLd");
         s_strings_t strz;
 
-	str2 = safe_string_new("Hello, world!");
-	s_string_t delim = safe_string_new("z");
+	str2 = safe_string_new("lHello, world!l");
+	s_string_t delim = safe_string_new("l");
 
-	strz = safe_string_split_limit(str2, delim, 10, &count);
+	strz = safe_string_split_limit_char(str2, "l", 0, &count);
 
 	for(i = 0; i < count; i++) {
 		const char *s = safe_string_access_characters(strz[i], &j);
+		if(safe_string_error()) {
+			printf("ERROR\n");
+		}
 		printf("%s\n", s ? s : "null");
 	}
 

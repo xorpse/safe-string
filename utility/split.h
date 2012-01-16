@@ -5,7 +5,7 @@
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
- * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+ * Copyright (c) 2012 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -33,4 +33,48 @@
 
 #include "types/types.h"
 
+/*!
+ * @brief Splits a string based upon a delimeter into at most 'elements' strings
+ * @param str source string to split
+ * @param delim delimeter to split on
+ * @param elements the amount of times (at most) to split (can be 0, if this is the case we treat elements as infinite)
+ * @param count the amount of strings to be returned
+ * @return Strings containing the split substrings of the source string, some elements may be NULL where the delimeter has
+ * repeated, or where there was no string before or after. (Should be checked by caller).
+ * @note Error value is set to indicate success or failure.
+ */
+extern s_strings_t safe_string_split(s_string_t, s_string_t, unsigned long int *);
+
+/*!
+ * @brief Splits the string using a C string delimeter
+ * @param str source string
+ * @param delim C string delimeter to split on
+ * @param element the amount of splits to perform
+ * @param count stores the amount of strings created from splitting
+ * @return Strings containing the split substrings of the source string, some elements may be NULL where the delimeter has
+ * repeated, or where there was no string before or after. (Should be checked by caller).
+ * @note Error value is set to indicate success or failure.
+ */
 extern s_strings_t safe_string_split_limit(s_string_t, s_string_t, unsigned long int, unsigned long int *);
+
+/*!
+ * @brief Splits the string using a C string delimeter with no limit to amount of splits
+ * @param str source string
+ * @param delim C string delimeter to split on
+ * @param count stores the amount of strings created from splitting
+ * @return Strings containing the split substrings of the source string, some elements may be NULL where the delimeter has
+ * repeated, or where there was no string before or after. (Should be checked by caller).
+ * @note Error value is set to indicate success or failure.
+ */
+extern s_strings_t safe_string_split_char(s_string_t, const char *, unsigned long int *);
+
+/*!
+ * @brief Splits the string using a delimeter with no limit on amount of splits
+ * @param str source string
+ * @param delim C string delimeter to split on
+ * @param count stores the amount of strings created from splitting
+ * @return Strings containing the split substrings of the source string, some elements may be NULL where the delimeter has
+ * repeated, or where there was no string before or after. (Should be checked by caller).
+ * @note Error value is set to indicate success or failure.
+ */
+extern s_strings_t safe_string_split_limit_char(s_string_t, const char *, unsigned long int, unsigned long int *);
