@@ -1,10 +1,10 @@
 /*!
- * @file macro.h
- * @brief Header containing macros for commonly used expressions
+ * @file types/s_strings_t.c
+ * @brief Generate functions for operating on arrays of safe strings.
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
- * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+ * Copyright (c) 2012 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -30,28 +30,27 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_MACRO_H_
-#define _SAFE_STRING_MACRO_H_
-
-#include <limits.h>
 #include "types/types.h"
-
-#define S_CHARSET_LIMIT (UCHAR_MAX + 1)
-
-/*!
- * @brief Macro to return the larger of two values (assumes testing on primitive types)
- * @param a first value
- * @param b second value
- * @return The greater of a and b
- */
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#include "macro.h"
 
 /*!
- * @brief Macro to return the larger of two values (assumes testing on primitive types)
- * @param a first value
- * @param b second value
- * @return The greater of a and b
+ * @brief Function to test if an array of safe string variables is valid
+ * @param strs array of source strings
+ * @param count the number of strings in the array
  */
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
+int safe_strings_valid(s_strings_t strs, unsigned long int count)
+{
+	if(strs) {
+		unsigned int i = 0;
 
-#endif
+		for(i = 0; i < count; i++) {
+			if(!safe_string_valid(str[i])) {
+				return(SAFE_STRING_INVALID);
+			}
+		}
+
+		return(!SAFE_STRING_INVALID);
+	} else {
+		return(SAFE_STRING_INVALID);
+	}
+}

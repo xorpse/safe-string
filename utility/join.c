@@ -1,10 +1,11 @@
 /*!
- * @file macro.h
- * @brief Header containing macros for commonly used expressions
+ * @file utility/join.c
+ * @brief Joins a collection of strings with an optional delimeter between
+ * each joined string.
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
- * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+ * Copyright (c) 2012 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -30,28 +31,39 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_MACRO_H_
-#define _SAFE_STRING_MACRO_H_
-
-#include <limits.h>
 #include "types/types.h"
+#include "universal.h"
+#include "utility.h"
+#include "macro.h"
 
-#define S_CHARSET_LIMIT (UCHAR_MAX + 1)
+s_string_t safe_string_join_limit(s_strings_t strs, unsigned long int count, s_string_t delim, unsigned long int limit)
+{
+	if(safe_strings_valid(strs, count) && safe_string_valid(delim)) {
+		if(count) {
+			unsigned int i = 0;
+			s_string_t retn = safe_string_new("");
 
-/*!
- * @brief Macro to return the larger of two values (assumes testing on primitive types)
- * @param a first value
- * @param b second value
- * @return The greater of a and b
- */
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
+			limit = MIN(limit, count);
 
-/*!
- * @brief Macro to return the larger of two values (assumes testing on primitive types)
- * @param a first value
- * @param b second value
- * @return The greater of a and b
- */
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
+			if(!safe_string_error()) {
+				for(i = 0; i < limit; i++) {
+					safe_string_concatenate(retn, strs[i]);
+					safe_string_concatenate(retn, delim);
+				}
 
-#endif
+				safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
+				return(retn);
+			} else {
+				if(safe_string_valid(retn)) {
+					safe_string_delete(retn);
+				}
+				return(SAFE_STRING_INVALID);
+			}
+		} else {
+			safe_string_set_error(SAFE_STRING_ERROR_INVALID_ARG);
+			return(SAFE_STRING_INVALID);
+		}	
+	} else {
+		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
+		return(SAFE_STRING_INVALID);
+	}
