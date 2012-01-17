@@ -39,30 +39,25 @@
 s_string_t safe_string_join_limit(s_strings_t strs, unsigned long int count, s_string_t delim, unsigned long int limit)
 {
 	if(safe_strings_valid(strs, count) && safe_string_valid(delim)) {
-		if(count) {
-			unsigned int i = 0;
-			s_string_t retn = safe_string_new("");
+		unsigned int i = 0;
+		s_string_t retn = safe_string_new("");
 
-			limit = MIN(limit, count);
+		limit = MIN(limit, count);
 
-			if(!safe_string_error()) {
-				for(i = 0; i < limit; i++) {
-					safe_string_concatenate(retn, strs[i]);
-					safe_string_concatenate(retn, delim);
-				}
-
-				safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
-				return(retn);
-			} else {
-				if(safe_string_valid(retn)) {
-					safe_string_delete(retn);
-				}
-				return(SAFE_STRING_INVALID);
+		if(!safe_string_error()) {
+			for(i = 0; i < limit; i++) {
+				safe_string_concatenate(retn, strs[i]);
+				safe_string_concatenate(retn, delim);
 			}
+
+			safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
+			return(retn);
 		} else {
-			safe_string_set_error(SAFE_STRING_ERROR_INVALID_ARG);
+			if(safe_string_valid(retn)) {
+				safe_string_delete(retn);
+			}
 			return(SAFE_STRING_INVALID);
-		}	
+		}
 	} else {
 		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
 		return(SAFE_STRING_INVALID);
