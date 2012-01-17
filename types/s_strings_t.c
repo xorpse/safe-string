@@ -44,13 +44,13 @@ int safe_strings_valid(s_strings_t strs, unsigned long int count)
 		unsigned int i = 0;
 
 		for(i = 0; i < count; i++) {
-			if(!safe_string_valid(str[i])) {
-				return(SAFE_STRING_INVALID);
+			if(!safe_string_valid(strs[i])) {
+				return(SAFE_STRING_EMPTY);
 			}
 		}
 
-		return(!SAFE_STRING_INVALID);
+		return(!SAFE_STRING_EMPTY);
 	} else {
-		return(SAFE_STRING_INVALID);
+		return(SAFE_STRING_EMPTY);
 	}
 }

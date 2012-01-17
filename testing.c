@@ -16,12 +16,14 @@ int main(int argc, char **argv)
 
 	strz = safe_string_split_limit_char(str2, "l", 0, &count);
 
+	printf("%d\n", safe_string_error_val());
+
 	for(i = 0; i < count; i++) {
 		const char *s = safe_string_access_characters(strz[i], &j);
 		if(safe_string_error()) {
-			printf("ERROR\n");
+			printf("%d\n", safe_string_error_val());
 		}
-		printf("%s\n", s ? s : "null");
+		printf("%s\n", s);
 	}
 
 	printf("str1 == str2 ? %s\n", !safe_string_case_compare_limit(str, str2, 100) ? "true" : "false");

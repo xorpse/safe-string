@@ -78,8 +78,7 @@ s_strings_t safe_string_split_limit(s_string_t str, s_string_t delim, unsigned l
 						retn[i] = safe_string_substring(str, j, offsets[i]);
 					}
 
-					retn[i++] = safe_string_substring(str, j, safe_string_length(str)); /* always needed */
-
+					retn[i++] = (j >= safe_string_length(str)) ? safe_string_new("") :  safe_string_substring(str, j, safe_string_length(str)); /* always needed */
 					if(realloc(retn, i * sizeof(s_string_t))) {
 						free(offsets);
 						*count = i;

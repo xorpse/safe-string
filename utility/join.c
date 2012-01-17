@@ -62,3 +62,4 @@ s_string_t safe_string_join_limit(s_strings_t strs, unsigned long int count, s_s
 		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
 		return(SAFE_STRING_INVALID);
 	}
+}
