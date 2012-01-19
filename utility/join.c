@@ -63,3 +63,24 @@ s_string_t safe_string_join_limit(s_strings_t strs, unsigned long int count, s_s
 		return(SAFE_STRING_INVALID);
 	}
 }
+
+
+s_string_t safe_string_join(s_strings_t strs, unsigned long int count, s_string_t delim)
+{
+	return(safe_string_join_limit(strs, count, delim, count);
+}
+
+s_string_t safe_string_join_limit_char(s_strings_t strs, unsigned long int count, const char *delim, unsigned long int limit)
+{
+	s_string_t temp = safe_string_new(delim);
+	s_strings_t retn = safe_string_join_limit(strs, count, temp, limit);
+	s_string_error_t error = safe_string_error_val();
+	safe_string_delete(temp);
+	safe_string_set_error(error);
+	return(retn);
+}
+
+s_string_t safe_string_join_char(s_strings_t strs, unsigned long int count, const char *delim)
+{
+	return(safe_string_join_limit_char(strs, count, delim, count));
+}

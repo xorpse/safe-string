@@ -68,8 +68,6 @@ s_string_t safe_string_new(const char *str)
 				return(rstring);
 			}
 		} else {
-			s_string_t rstring = (s_string_t)calloc(1, sizeof(_s_string_t));
-		
 			rstring->s_string = (char *)calloc(1, sizeof(char));
 
 			if(!rstring->s_string) {
@@ -127,5 +125,4 @@ void safe_string_array_delete(s_strings_t strs, unsigned long int count)
 	safe_string_set_error(SAFE_STRING_ERROR_NO_ERROR);
 	strs = SAFE_STRING_INVALID;
 }
-
 
