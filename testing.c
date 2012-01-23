@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdio.h>
 #include "universal.h"
 #include "utility.h"
 #include "types/types.h"
@@ -7,14 +8,18 @@ int main(int argc, char **argv)
 {
 	unsigned long int i = 0, j = 0, count = 0;
         char *freqs;
-	s_string_t str = safe_string_new("Hello, world!");
+	s_string_t str = safe_string_new("z%%^ZHello, world!ZZzz%^");
 	s_string_t str2, str3 = safe_string_new("WorLd");
         s_strings_t strz;
 
-	str2 = safe_string_new("lHello, world!l");
+	str = safe_string_trim_set_limit(str, "Zz%^", 0);
+
+	printf("%s\n", safe_string_access_characters(str, NULL));
+
+	str2 = safe_string_new("lHello, world!");
 	s_string_t delim = safe_string_new("l");
 
-	strz = safe_string_split_limit_char(str2, "l", 0, &count);
+	strz = safe_string_split_limit_char(str2, "l", 2, &count);
 
 	printf("%d\n", safe_string_error_val());
 
@@ -25,6 +30,8 @@ int main(int argc, char **argv)
 		}
 		printf("%s\n", s);
 	}
+
+	printf("%s\n", safe_string_access_characters(safe_string_join_char(strz, count, "l"), NULL));
 
 	printf("str1 == str2 ? %s\n", !safe_string_case_compare_limit(str, str2, 100) ? "true" : "false");
 

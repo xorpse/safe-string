@@ -1,10 +1,12 @@
 /*!
- * @file utility.h
- * @brief Main header grouping all of the utility functions
+ * @file utility/join.h
+ * @brief Header file for functions allowing arrays of strings to be joined
+ * together with an optional delimeter.
+ * each joined string.
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
- * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+ * Copyright (c) 2012 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -30,25 +32,17 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UTILITY_H_
-#define _SAFE_STRING_UTILITY_H_
+#ifndef _SAFE_STRING_UTILITY_JOIN_H_
+#define _SAFE_STRING_UTILITY_JOIN_H_
 
-#include "utility/index.h" 
-#include "utility/compare.h" 
-#include "utility/case_compare.h" 
-#include "utility/length.h" 
-#include "utility/concatenate.h" 
-#include "utility/copy.h" 
-#include "utility/chunk_split.h"
-#include "utility/count_chars.h"
-#include "utility/substring_compare.h"
-#include "utility/substring_case_compare.h"
-#include "utility/substring.h"
-#include "utility/string_locate.h"
-#include "utility/string_contains.h"
-#include "utility/access.h"
-#include "utility/split.h"
-#include "utility/join.h"
-#include "utility/trim.h"
+#include "types/types.h"
+
+s_string_t safe_string_join_limit(s_strings_t, unsigned long int, s_string_t, unsigned long int);
+
+s_string_t safe_string_join(s_strings_t, unsigned long int, s_string_t);
+
+s_string_t safe_string_join_limit_char(s_strings_t, unsigned long int, const char *, unsigned long int);
+
+s_string_t safe_string_join_char(s_strings_t, unsigned long int, const char *);
 
 #endif
