@@ -64,3 +64,84 @@ extern s_string_t safe_string_rtrim_set_limit(s_string_t str, const char *set, u
  * @return The trimmed string.
  */
 extern s_string_t safe_string_trim_set_limit(s_string_t str, const char *set, unsigned long int limit);
+
+/*!
+ * @brief Removes at most a given amount of white space characters from  the left
+ * (start) of a given string.
+ * @param str source string
+ * @param limit maximum number of characters to be removed (if 0 then there is no
+ * limit)
+ * @return The trimmed string.
+ */
+extern s_string_t safe_string_ltrim_limit(s_string_t str, unsigned long int limit);
+
+/*!
+ * @brief Removes at most a given amount of white space characters from the right
+ * (end) of a given string.
+ * @param str source string
+ * @param limit maximum number of characters to be removed (if 0 then there is no
+ * limit)
+ * @return The trimmed string.
+ */
+extern s_string_t safe_string_rtrim_limit(s_string_t str, unsigned long int limit);
+
+/*!
+ * @brief Removes at most a given amount of white space characters from the left
+ * and right (start and ending) of a given string.
+ * @param str source string
+ * @param limit maximum number of characters to be removed (if 0 then there is no
+ * limit)
+ * @return The trimmed string.
+ */
+extern s_string_t safe_string_trim_limit(s_string_t str, unsigned long int limit);
+
+/*!
+ * @brief Removes all of the characters specified by a given set from the left
+ * (start) of a given string.
+ * @param str source string
+ * @param set set of characters to be removed
+ * @return The trimmed string.
+ */
+extern s_string_t safe_string_ltrim_set(s_string_t, const char *);
+
+/*!
+ * @brief Removes all of the characters specified by a given set from the right
+ * (ending) of a given string.
+ * @param str source string
+ * @param set set of characters to be removed
+ * @return The trimmed string.
+ */
+extern s_string_t safe_string_rtrim_set(s_string_t, const char *);
+
+/*!
+ * @brief Removes all of the characters specified by a given set from the left and
+ * right (start and ending) of a given string.
+ * @param str source string
+ * @param set set of characters to be removed
+ * @return The trimmed string.
+ */
+extern s_string_t safe_string_trim_set(s_string_t, const char *);
+
+/*!
+ * @brief Removes all white space characters from the left (start) of a given
+ * string.
+ * @param str source string
+ * @return The trimmed string.
+ */
+extern s_string_t safe_string_ltrim(s_string_t str);
+
+/*!
+ * @brief Removes all white space characters from the right (ending) of a given
+ * string.
+ * @param str source string
+ * @return The trimmed string.
+ */
+extern s_string_t safe_string_rtrim(s_string_t str);
+
+/*!
+ * @brief Removes all white space characters from the left and right (start and
+ * ending) of a given string.
+ * @param str source string
+ * @return The trimmed string.
+ */
+extern s_string_t safe_string_trim(s_string_t str);
