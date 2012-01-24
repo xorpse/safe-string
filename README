@@ -11,8 +11,6 @@ safe_string_pad :
 safe_string_segment_length : 
 	http://www.php.net/manual/en/function.strcspn.php
 	http://www.php.net/manual/en/function.strspn.php
-safe_string_locate : 
-	http://www.php.net/manual/en/function.strstr.php
 safe_string_locate_set : (first occurance of element from given set)
 	http://www.php.net/manual/en/function.strpbrk.php
 safe_string_reverse :
