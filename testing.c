@@ -1,8 +1,10 @@
 #include <stdio.h>
-#include <stdio.h>
 #include "universal.h"
 #include "utility.h"
 #include "types/types.h"
+
+// really quick test
+extern s_string_t safe_string_reverse(s_string_t);
 
 int main(int argc, char **argv)
 {
@@ -13,6 +15,8 @@ int main(int argc, char **argv)
         s_strings_t strz;
 
 	str = safe_string_trim_set_limit(str, "Zz%^", 0);
+
+	str = safe_string_reverse(str);
 
 	printf("%s\n", safe_string_access_characters(str, NULL));
 
@@ -30,6 +34,7 @@ int main(int argc, char **argv)
 		}
 		printf("%s\n", s);
 	}
+
 
 	printf("%s\n", safe_string_access_characters(safe_string_join_char(strz, count, "l"), NULL));
 
