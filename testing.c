@@ -3,9 +3,6 @@
 #include "utility.h"
 #include "types/types.h"
 
-// really quick test
-extern s_string_t safe_string_reverse(s_string_t);
-
 int main(int argc, char **argv)
 {
 	unsigned long int i = 0, j = 0, count = 0;
@@ -16,7 +13,7 @@ int main(int argc, char **argv)
 
 	str = safe_string_trim_set_limit(str, "Zz%^", 0);
 
-	str = safe_string_reverse(str);
+	str = safe_string_substring_reverse(str, 7, 11);
 
 	printf("%s\n", safe_string_access_characters(str, NULL));
 

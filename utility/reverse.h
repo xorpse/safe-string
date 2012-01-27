@@ -1,10 +1,10 @@
 /*!
- * @file utility.h
- * @brief Main header grouping all of the utility functions
+ * @file utility/reverse.h
+ * @brief Header file for tring and substring reversal functions.
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
- * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+ * Copyright (c) 2012 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -30,26 +30,25 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UTILITY_H_
-#define _SAFE_STRING_UTILITY_H_
+#ifndef _SAFE_STRING_UTILITY_REVERSE_H_
+#define _SAFE_STRING_UTILITY_REVERSE_H_
 
-#include "utility/index.h" 
-#include "utility/compare.h" 
-#include "utility/case_compare.h" 
-#include "utility/length.h" 
-#include "utility/concatenate.h" 
-#include "utility/copy.h" 
-#include "utility/chunk_split.h"
-#include "utility/count_chars.h"
-#include "utility/substring_compare.h"
-#include "utility/substring_case_compare.h"
-#include "utility/substring.h"
-#include "utility/string_locate.h"
-#include "utility/string_contains.h"
-#include "utility/access.h"
-#include "utility/split.h"
-#include "utility/join.h"
-#include "utility/trim.h"
-#include "utility/reverse.h"
+#include "types/types.h"
+
+/*!
+ * @brief Reverses the order of characters of a substring of a string.
+ * @param str source string
+ * @param start starting index of the string 
+ * @param end ending index of the string 
+ * @return String with inner substring reversed.
+ */
+extern s_string_t safe_string_substring_reverse(s_string_t, unsigned long int, unsigned long int);
+
+/*
+ * @brief Reverses the order of characters of a string.
+ * @param str source string
+ * @return String with order of characters reversed.
+ */
+extern s_string_t safe_string_reverse(s_string_t);
 
 #endif

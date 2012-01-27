@@ -1,7 +1,6 @@
 /*!
  * @file utility/reverse.c
  * @brief String and substring reversal functions.
- * each joined string.
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
