@@ -36,6 +36,43 @@
 #include "universal.h"
 #include "macro.h"
 
+/*!
+ * @brief Pads the right-hand-side of the string with a given amount of
+ * characters from a specified set.
+ * @param str source string
+ * @param pstr string containing set of characters to use as padding
+ * @param length length of the new string
+ */
+s_string_t safe_string_lpad_char(s_string_t str, const char *pstr, unsigned long int length)
+{
+	s_string_t temp = safe_string_new(pstr), retn;
+	retn = safe_string_lpad(str, temp, length);
+	safe_string_delete(temp);
+	return(retn);
+}
+
+/*!
+ * @brief Pads the left-hand-side of the string with a given amount of
+ * characters from a specified set.
+ * @param str source string
+ * @param pstr string containing set of characters to use as padding
+ * @param length length of the new string
+ */
+s_string_t safe_string_rpad_char(s_string_t str, const char *pstr, unsigned long int length)
+{
+	s_string_t temp = safe_string_new(pstr), retn;
+	retn = safe_string_rpad(str, temp, length);
+	safe_string_delete(temp);
+	return(retn);
+}
+
+/*!
+ * @brief Pads the left-hand-side of the string with a given amount of
+ * characters from a specified set.
+ * @param str source string
+ * @param pstr string containing set of characters to use as padding
+ * @param length length of the new string
+ */
 s_string_t safe_string_lpad(s_string_t str, s_string_t pstr, unsigned long int length)
 {
 	if(safe_string_valid(str) && safe_string_valid(pstr)) {
@@ -60,6 +97,13 @@ s_string_t safe_string_lpad(s_string_t str, s_string_t pstr, unsigned long int l
 	}
 }
 
+/*!
+ * @brief Pads the right-hand-side of the string with a given amount of
+ * characters from a specified set.
+ * @param str source string
+ * @param pstr string containing set of characters to use as padding
+ * @param length length of the new string
+ */
 s_string_t safe_string_rpad(s_string_t str, s_string_t pstr, unsigned long int length)
 {
 	if(safe_string_valid(str) && safe_string_valid(pstr)) {

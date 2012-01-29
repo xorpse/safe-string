@@ -41,7 +41,7 @@
  * @param set set to test if character is in
  * @return 1 if character is in set, 0 otherwise
  */
-inline int _char_in_set(char c, const char *set)
+static inline int _char_in_set(char c, const char *set)
 {
 	if(set) {
 		unsigned long int i = 0, length = 0;

@@ -1,10 +1,11 @@
 /*!
- * @file utility.h
- * @brief Main header grouping all of the utility functions
+ * @file utility/locate_set.h
+ * @brief Header file for finding the first occurrence of a character from
+ * a given set within a specified string.
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
- * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+ * Copyright (c) 2012 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -30,27 +31,29 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UTILITY_H_
-#define _SAFE_STRING_UTILITY_H_
+#ifndef _SAFE_STRING_UTILITY_LOCATE_SET_H_
+#define _SAFE_STRING_UTILITY_LOCATE_SET_H_
 
-#include "utility/index.h" 
-#include "utility/compare.h" 
-#include "utility/case_compare.h" 
-#include "utility/length.h" 
-#include "utility/concatenate.h" 
-#include "utility/copy.h" 
-#include "utility/chunk_split.h"
-#include "utility/count_chars.h"
-#include "utility/substring_compare.h"
-#include "utility/substring_case_compare.h"
-#include "utility/substring.h"
-#include "utility/string_locate.h"
-#include "utility/string_contains.h"
-#include "utility/access.h"
-#include "utility/split.h"
-#include "utility/join.h"
-#include "utility/trim.h"
-#include "utility/reverse.h"
-#include "utility/pad.h"
+#include "types/types.h"
+
+/*!
+ * @brief Find the first occurrence of a character from a given set within a specified string
+ * @param str source string
+ * @param sset set to find characters from
+ * @index index location of the first occurrence of a character from the given set in the
+ * source string
+ * @return 1 if found, 0 otherwise.
+ */
+extern unsigned long int safe_string_locate_set(s_string_t, s_string_t, unsigned long int *);
+
+/*!
+ * @brief Find the first occurrence of a character from a given set within a specified string
+ * @param str source string
+ * @param sset set to find characters from
+ * @index index location of the first occurrence of a character from the given set in the
+ * source string
+ * @return 1 if found, 0 otherwise.
+ */
+extern unsigned long int safe_string_locate_set_char(s_string_t, const char *, unsigned long int *);
 
 #endif

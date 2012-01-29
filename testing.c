@@ -3,8 +3,7 @@
 #include "utility.h"
 #include "types/types.h"
 
-extern s_string_t safe_string_lpad(s_string_t, s_string_t, unsigned long int);
-extern s_string_t safe_string_rpad(s_string_t, s_string_t, unsigned long int);
+extern unsigned long int safe_string_locate_set_char(s_string_t str, const char *sset, unsigned long int *index);
 
 int main(int argc, char **argv)
 {
@@ -18,11 +17,15 @@ int main(int argc, char **argv)
 
 	str = safe_string_substring_reverse(str, 7, 11);
 
-	str3 = safe_string_rpad(str3, safe_string_new("!!"), safe_string_length(str3) + 3);
+	str3 = safe_string_rpad(str3, safe_string_new(""), safe_string_length(str3) + 3);
 
-	printf("%s\n", safe_string_access_characters(str3, NULL));
+	printf("%s (%lu)\n", safe_string_access_characters(str3, NULL), safe_string_length(str3));
 
 	printf("%s\n", safe_string_access_characters(str, NULL));
+
+	if(safe_string_locate_set_char(str, "w", &i)) {
+		printf("%lu\n", i);
+	}
 
 	str2 = safe_string_new("lHello, world!");
 	s_string_t delim = safe_string_new("l");
