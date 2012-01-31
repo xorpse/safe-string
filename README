@@ -4,11 +4,6 @@ Library ensuring safety of string operations in C.
 
 TODO:
 ------------------------------------------------------------------------------
-safe_string_replace :
-	http://www.php.net/manual/en/function.str-replace.php
-safe_string_segment_length : 
-	http://www.php.net/manual/en/function.strcspn.php
-	http://www.php.net/manual/en/function.strspn.php
 safe_string_token_split :
 	http://www.php.net/manual/en/function.strtok.php
 safe_string_substring_replace :

@@ -1,10 +1,10 @@
 /*!
- * @file utility.h
- * @brief Main header grouping all of the utility functions
+ * @file utility/replace.h
+ * @brief Header file for replacing patterns of characters with in strings.
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
- * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+ * Copyright (c) 2012 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -30,30 +30,33 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UTILITY_H_
-#define _SAFE_STRING_UTILITY_H_
+#ifndef _SAFE_STRING_UTILITY_REPLACE_H_
+#define _SAFE_STRING_UTILITY_REPLACE_H_
 
-#include "utility/index.h" 
-#include "utility/compare.h" 
-#include "utility/case_compare.h" 
-#include "utility/length.h" 
-#include "utility/concatenate.h" 
-#include "utility/copy.h" 
-#include "utility/chunk_split.h"
-#include "utility/count_chars.h"
-#include "utility/substring_compare.h"
-#include "utility/substring_case_compare.h"
-#include "utility/substring.h"
-#include "utility/string_locate.h"
-#include "utility/string_contains.h"
-#include "utility/access.h"
-#include "utility/split.h"
-#include "utility/join.h"
-#include "utility/trim.h"
-#include "utility/reverse.h"
-#include "utility/pad.h"
-#include "utility/locate_set.h"
-#include "utility/replace.h"
-#include "utility/index_split.h"
+#include "types/types.h"
+
+/*!
+ * @brief Replaces all of the occurrences of a given character pattern with
+ * another in a specified string.
+ * @param str source string
+ * @param s1 string to be replaced
+ * @param s2 string to use as replacement
+ * @return Original string with patterns replaced, otherwise SAFE_STRING_INVALID
+ * on error.
+ */
+extern s_string_t safe_string_replace(s_string_t, s_string_t, s_string_t);
+
+/*!
+ * @brief Replaces an amount of the occurrences of a given character pattern with
+ * another in a specified string.
+ * @param str source string
+ * @param s1 string to be replaced
+ * @param s2 string to use as replacement
+ * @param limit the maximum amount of changes to make, if 0 then will replace all
+ * found
+ * @return Original string with patterns replaced, otherwise SAFE_STRING_INVALID
+ * on error.
+ */
+extern s_string_t safe_string_replace_limit(s_string_t, s_string_t, s_string_t, unsigned long int);
 
 #endif

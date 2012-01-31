@@ -1,10 +1,10 @@
 /*!
- * @file utility.h
- * @brief Main header grouping all of the utility functions
+ * @file utility/index_split.h
+ * @brief Header file for splitting a string based on an array of indexes.
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
- * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+ * Copyright (c) 2012 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -30,30 +30,20 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UTILITY_H_
-#define _SAFE_STRING_UTILITY_H_
+#ifndef _SAFE_STRING_UTILITY_INDEX_SPLIT_H_
+#define _SAFE_STRING_UTILITY_INDEX_SPLIT_H_
 
-#include "utility/index.h" 
-#include "utility/compare.h" 
-#include "utility/case_compare.h" 
-#include "utility/length.h" 
-#include "utility/concatenate.h" 
-#include "utility/copy.h" 
-#include "utility/chunk_split.h"
-#include "utility/count_chars.h"
-#include "utility/substring_compare.h"
-#include "utility/substring_case_compare.h"
-#include "utility/substring.h"
-#include "utility/string_locate.h"
-#include "utility/string_contains.h"
-#include "utility/access.h"
-#include "utility/split.h"
-#include "utility/join.h"
-#include "utility/trim.h"
-#include "utility/reverse.h"
-#include "utility/pad.h"
-#include "utility/locate_set.h"
-#include "utility/replace.h"
-#include "utility/index_split.h"
+#include "types/types.h"
+
+/*!
+ * @brief Splits a string based upon a list of indexes.
+ * @param str source string
+ * @param indexes array of indexes indicating offsets to split at
+ * @param index_count the amount of indexes specified
+ * @param count the amount of splits actually made
+ * @return Array of strings split by the given indexes, or SAFE_STRING_INVALID if
+ * an error was detected.
+ */
+extern s_strings_t safe_string_index_split(s_string_t, unsigned long int *, unsigned long int, unsigned long int *);
 
 #endif

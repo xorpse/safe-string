@@ -3,6 +3,7 @@
 #include "utility.h"
 #include "types/types.h"
 
+extern s_string_t safe_string_replace(s_string_t, s_string_t, s_string_t);
 extern unsigned long int safe_string_locate_set_char(s_string_t str, const char *sset, unsigned long int *index);
 
 int main(int argc, char **argv)
@@ -12,7 +13,9 @@ int main(int argc, char **argv)
 	s_string_t str = safe_string_new("z%%^ZHello, world!ZZzz%^");
 	s_string_t str2, str3 = safe_string_new("WorLd");
         s_strings_t strz;
+	unsigned long int vec[] = { 3, 5, 4, 0, 4, 7 };
 
+	str = safe_string_replace(str, safe_string_new("heloool"), safe_string_new("L"));
 	str = safe_string_trim_set_limit(str, "Zz%^", 0);
 
 	str = safe_string_substring_reverse(str, 7, 11);
@@ -30,9 +33,13 @@ int main(int argc, char **argv)
 	str2 = safe_string_new("lHello, world!");
 	s_string_t delim = safe_string_new("l");
 
-	strz = safe_string_split_limit_char(str2, "l", 2, &count);
+	strz = safe_string_split_limit_char(str2, "aadwd3l", 2, &count);
 
-	printf("%d\n", safe_string_error_val());
+	printf("%p, %p, %p\n", str2, vec, &count);
+
+	strz = safe_string_index_split(str2, vec, 6, &count);
+
+	printf("%d %lu\n", safe_string_error_val(), count);
 
 	for(i = 0; i < count; i++) {
 		const char *s = safe_string_access_characters(strz[i], &j);
