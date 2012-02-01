@@ -33,8 +33,17 @@ int main(int argc, char **argv)
 	str2 = safe_string_new("lHello, world!");
 	s_string_t delim = safe_string_new("l");
 
-	strz = safe_string_split_limit_char(str2, "aadwd3l", 2, &count);
+	strz = safe_string_token_split_char(str2, "lo", &count);
 
+	printf("count: %lu\n", count);
+
+	for(i = 0; i < count; i++) {
+		const char *s = safe_string_access_characters(strz[i], &j);
+		if(safe_string_error()) {
+			printf("%d\n", safe_string_error_val());
+		}
+		printf("%s\n", s);
+	}
 	printf("%p, %p, %p\n", str2, vec, &count);
 
 	strz = safe_string_index_split(str2, vec, 6, &count);

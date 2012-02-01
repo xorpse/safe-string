@@ -55,5 +55,6 @@
 #include "utility/locate_set.h"
 #include "utility/replace.h"
 #include "utility/index_split.h"
+#include "utility/token_split.h"
 
 #endif
