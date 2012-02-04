@@ -3,11 +3,6 @@
 #include "utility.h"
 #include "types/types.h"
 
-extern s_string_t safe_string_replace(s_string_t, s_string_t, s_string_t);
-extern unsigned long int safe_string_locate_set_char(s_string_t str, const char *sset, unsigned long int *index);
-
-extern s_string_t safe_string_substring_replace(s_string_t str, unsigned long int start, unsigned long int end, s_string_t old, s_string_t new);
-
 int main(int argc, char **argv)
 {
 	unsigned long int i = 0, j = 0, count = 0;

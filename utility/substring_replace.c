@@ -36,11 +36,28 @@
 #include "universal.h"
 #include "macro.h"
 
+/*!
+ * @brief Replaces strings within a substring of a given string.
+ * @param str source string
+ * @param start first index of substring
+ * @param end last index of substring
+ * @param old string to be replaced
+ * @param new string to replace
+ */
 s_string_t safe_string_substring_replace_char(s_string_t str, unsigned long int start, unsigned long int end, const char *old, const char *new)
 {
 	return(safe_string_substring_replace_limit_char(str, start, end, old, new, 0));
 }
 
+/*!
+ * @brief Replaces strings within a substring of a given string.
+ * @param str source string
+ * @param start first index of substring
+ * @param end last index of substring
+ * @param old string to be replaced
+ * @param new string to replace
+ * @param limit maximum amount of replacements to be made (0 for unlimited)
+ */
 s_string_t safe_string_substring_replace_limit_char(s_string_t str, unsigned long int start, unsigned long int end, const char *old, const char *new, unsigned long int limit)
 {
 	if(old && new) {
@@ -70,11 +87,28 @@ s_string_t safe_string_substring_replace_limit_char(s_string_t str, unsigned lon
 	
 }
 
+/*!
+ * @brief Replaces strings within a substring of a given string.
+ * @param str source string
+ * @param start first index of substring
+ * @param end last index of substring
+ * @param old string to be replaced
+ * @param new string to replace
+ */
 s_string_t safe_string_substring_replace(s_string_t str, unsigned long int start, unsigned long int end, s_string_t old, s_string_t new)
 {
 	return(safe_string_substring_replace_limit(str, start, end, old, new, 0));
 }
 
+/*!
+ * @brief Replaces strings within a substring of a given string.
+ * @param str source string
+ * @param start first index of substring
+ * @param end last index of substring
+ * @param old string to be replaced
+ * @param new string to replace
+ * @param limit maximum amount of replacements to be made (0 for unlimited)
+ */
 s_string_t safe_string_substring_replace_limit(s_string_t str, unsigned long int start, unsigned long int end, s_string_t old, s_string_t new, unsigned long int limit)
 {
 	if(safe_string_valid(str) && safe_string_valid(old) && safe_string_valid(new)) {
