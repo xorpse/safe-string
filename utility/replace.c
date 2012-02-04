@@ -45,6 +45,59 @@
  * @return Original string with patterns replaced, otherwise SAFE_STRING_INVALID
  * on error.
  */
+s_string_t safe_string_replace_char(s_string_t str, const char *s1, const char *s2)
+{
+	return(safe_string_replace_limit_char(str, s1, s2, 0));
+}
+
+/*!
+ * @brief Replaces an amount of the occurrences of a given character pattern with
+ * another in a specified string.
+ * @param str source string
+ * @param s1 string to be replaced
+ * @param s2 string to use as replacement
+ * @param limit the maximum amount of changes to make, if 0 then will replace all
+ * found
+ * @return Original string with patterns replaced, otherwise SAFE_STRING_INVALID
+ * on error.
+ */
+s_string_t safe_string_replace_limit_char(s_string_t str, const char *s1, const char *s2, unsigned long int limit)
+{
+	if(s1 && s2) {
+		s_string_t s1t, s2t;
+
+		s1t = safe_string_new(s1);
+
+		if(safe_string_valid(s1t)) {
+			s2t = safe_string_new(s2);
+			if(safe_string_valid(s2t)) {
+				s_string_t retn = safe_string_replace_limit(str, s1t, s2t, limit);
+				safe_string_delete(s1t); safe_string_delete(s2t);
+				return(retn);
+			} else {
+				safe_string_delete(s1t);
+				safe_string_set_error(SAFE_STRING_ERROR_MEM_ALLOC);
+				return(SAFE_STRING_INVALID);
+			}
+		} else {
+			safe_string_set_error(SAFE_STRING_ERROR_MEM_ALLOC);
+			return(SAFE_STRING_INVALID);
+		}
+	} else {
+		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
+		return(SAFE_STRING_INVALID);
+	}
+}
+
+/*!
+ * @brief Replaces all of the occurrences of a given character pattern with
+ * another in a specified string.
+ * @param str source string
+ * @param s1 string to be replaced
+ * @param s2 string to use as replacement
+ * @return Original string with patterns replaced, otherwise SAFE_STRING_INVALID
+ * on error.
+ */
 s_string_t safe_string_replace(s_string_t str, s_string_t s1, s_string_t s2)
 {
 	return(safe_string_replace_limit(str, s1, s2, 0));

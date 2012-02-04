@@ -6,6 +6,8 @@
 extern s_string_t safe_string_replace(s_string_t, s_string_t, s_string_t);
 extern unsigned long int safe_string_locate_set_char(s_string_t str, const char *sset, unsigned long int *index);
 
+extern s_string_t safe_string_substring_replace(s_string_t str, unsigned long int start, unsigned long int end, s_string_t old, s_string_t new);
+
 int main(int argc, char **argv)
 {
 	unsigned long int i = 0, j = 0, count = 0;
@@ -30,7 +32,10 @@ int main(int argc, char **argv)
 		printf("%lu\n", i);
 	}
 
-	str2 = safe_string_new("lHello, world!");
+	str2 = safe_string_substring_replace(safe_string_new("lHello, world!"), 5, 12, safe_string_new("o"), safe_string_new("ll"));
+	
+	printf("%s\n", safe_string_access_characters(str2, SAFE_STRING_INVALID));
+
 	s_string_t delim = safe_string_new("l");
 
 	strz = safe_string_token_split_char(str2, "lo", &count);

@@ -137,8 +137,6 @@ s_strings_t safe_string_token_split_limit(s_string_t str, s_string_t tokens, uns
 			}
 				
 
-			printf("token_split: %lu\n", found);
-
 			s_strings_t retn = (s_strings_t)calloc(found + 2, sizeof(s_string_t)); /* maximum size */
 
 			if(retn) {

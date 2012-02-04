@@ -56,5 +56,6 @@
 #include "utility/replace.h"
 #include "utility/index_split.h"
 #include "utility/token_split.h"
+#include "utility/substring_replace.h"
 
 #endif

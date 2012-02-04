@@ -44,6 +44,30 @@
  * @return Original string with patterns replaced, otherwise SAFE_STRING_INVALID
  * on error.
  */
+extern s_string_t safe_string_replace_char(s_string_t, const char *, const char *);
+
+/*!
+ * @brief Replaces an amount of the occurrences of a given character pattern with
+ * another in a specified string.
+ * @param str source string
+ * @param s1 string to be replaced
+ * @param s2 string to use as replacement
+ * @param limit the maximum amount of changes to make, if 0 then will replace all
+ * found
+ * @return Original string with patterns replaced, otherwise SAFE_STRING_INVALID
+ * on error.
+ */
+extern s_string_t safe_string_replace_limit_char(s_string_t, const char *, const char *, unsigned long int);
+
+/*!
+ * @brief Replaces all of the occurrences of a given character pattern with
+ * another in a specified string.
+ * @param str source string
+ * @param s1 string to be replaced
+ * @param s2 string to use as replacement
+ * @return Original string with patterns replaced, otherwise SAFE_STRING_INVALID
+ * on error.
+ */
 extern s_string_t safe_string_replace(s_string_t, s_string_t, s_string_t);
 
 /*!
