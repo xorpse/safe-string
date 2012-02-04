@@ -1,7 +1,7 @@
 /*!
- * @file utility/substring_replace.c
- * @brief Replaces the contents of a substring within a string with another
- * given string.
+ * @file utility/substring_replace.h
+ * @brief Header file for function to replace the contents of a substring
+ * within a string with another given string.
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
