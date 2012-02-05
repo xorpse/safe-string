@@ -1,8 +1,3 @@
 safe-string : Sam Thomas <s@ghost.sh>
 ******************************************************************************
 Library ensuring safety of string operations in C.
-
-TODO:
-------------------------------------------------------------------------------
-safe_string_translate :
-	http://www.php.net/manual/en/function.strtr.php
