@@ -1,10 +1,10 @@
 /*!
- * @file utility.h
- * @brief Main header grouping all of the utility functions
+ * @file utility/filter.c
+ * @brief Filters the characters in a string based upon certain conditions.
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
- * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+ * Copyright (c) 2012 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -30,33 +30,44 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UTILITY_H_
-#define _SAFE_STRING_UTILITY_H_
+#include <ctype.h>
+#include "types/types.h"
+#include "utility.h"
+#include "universal.h"
+#include "macro.h"
 
-#include "utility/index.h" 
-#include "utility/compare.h" 
-#include "utility/case_compare.h" 
-#include "utility/length.h" 
-#include "utility/concatenate.h" 
-#include "utility/copy.h" 
-#include "utility/chunk_split.h"
-#include "utility/count_chars.h"
-#include "utility/substring_compare.h"
-#include "utility/substring_case_compare.h"
-#include "utility/substring.h"
-#include "utility/string_locate.h"
-#include "utility/string_contains.h"
-#include "utility/access.h"
-#include "utility/split.h"
-#include "utility/join.h"
-#include "utility/trim.h"
-#include "utility/reverse.h"
-#include "utility/pad.h"
-#include "utility/locate_set.h"
-#include "utility/replace.h"
-#include "utility/index_split.h"
-#include "utility/token_split.h"
-#include "utility/substring_replace.h"
-#include "utility/filter.h"
+/*!
+ * @brief Removes all non-printable characters from the string, replacing them
+ * with '?'.
+ * @param str the string to filter
+ * @return The filtered string.
+ */
+s_string_t safe_string_filter_printable(s_string_t str)
+{
+	return(safe_string_filter_generic(str, isprint, '?'));
+}
 
-#endif
+/*!
+ * @brief Removes all characters not specified by a filter function, replacing them
+ * with a given character.
+ * @param str the string to filter
+ * @param filter the function to use as the filter (returns 1 if allowed, 0 otherwise)
+ * the prototype is of the form int filter(int c)
+ * @param c character to replace invalid characters
+ * @return filtered string
+ */
+s_string_t safe_string_filter_generic(s_string_t str, int(*filter)(int), const char c)
+{
+	if(safe_string_valid(str)) {
+		unsigned long int i = 0;
+
+		for(i = 0; i < safe_string_length(str); i++) {
+			safe_string_index_set(str, i, (*filter)(safe_string_index(str, i)) ? safe_string_index(str, i) : c);
+		}
+
+		return(str);
+	} else {
+		safe_string_set_error(SAFE_STRING_ERROR_NULL_POINTER);
+		return(SAFE_STRING_INVALID);
+	}
+}

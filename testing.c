@@ -7,10 +7,14 @@ int main(int argc, char **argv)
 {
 	unsigned long int i = 0, j = 0, count = 0;
         char *freqs;
-	s_string_t str = safe_string_new("z%%^ZHello, world!ZZzz%^");
+	s_string_t str = safe_string_new("z%%^ZHello, \x083world!ZZzz%^");
 	s_string_t str2, str3 = safe_string_new("WorLd");
         s_strings_t strz;
 	unsigned long int vec[] = { 3, 5, 4, 0, 4, 7 };
+
+	str = safe_string_filter_printable(str);
+
+	printf("%s\n", safe_string_access_characters(str, NULL));
 
 	str = safe_string_replace(str, safe_string_new("heloool"), safe_string_new("L"));
 	str = safe_string_trim_set_limit(str, "Zz%^", 0);

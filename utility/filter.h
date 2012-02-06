@@ -1,10 +1,10 @@
 /*!
- * @file utility.h
- * @brief Main header grouping all of the utility functions
+ * @file utility/filter.h
+ * @brief Header file for applying filters to safe strings.
  * @author Sam Thomas <s@ghost.sh>
  *
  * @section LICENSE
- * Copyright (c) 2011 Sam Thomas <s@ghost.sh>
+ * Copyright (c) 2012 Sam Thomas <s@ghost.sh>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -30,33 +30,28 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SAFE_STRING_UTILITY_H_
-#define _SAFE_STRING_UTILITY_H_
+#ifndef _SAFE_STRING_UTILITY_FILTER_H_
+#define _SAFE_STRING_UTILITY_FILTER_H_
 
-#include "utility/index.h" 
-#include "utility/compare.h" 
-#include "utility/case_compare.h" 
-#include "utility/length.h" 
-#include "utility/concatenate.h" 
-#include "utility/copy.h" 
-#include "utility/chunk_split.h"
-#include "utility/count_chars.h"
-#include "utility/substring_compare.h"
-#include "utility/substring_case_compare.h"
-#include "utility/substring.h"
-#include "utility/string_locate.h"
-#include "utility/string_contains.h"
-#include "utility/access.h"
-#include "utility/split.h"
-#include "utility/join.h"
-#include "utility/trim.h"
-#include "utility/reverse.h"
-#include "utility/pad.h"
-#include "utility/locate_set.h"
-#include "utility/replace.h"
-#include "utility/index_split.h"
-#include "utility/token_split.h"
-#include "utility/substring_replace.h"
-#include "utility/filter.h"
+#include "types/types.h"
+
+/*!
+ * @brief Removes all non-printable characters from the string, replacing them
+ * with '?'.
+ * @param str the string to filter
+ * @return The filtered string.
+ */
+extern s_string_t safe_string_filter_printable(s_string_t);
+
+/*!
+ * @brief Removes all characters not specified by a filter function, replacing them
+ * with a given character.
+ * @param str the string to filter
+ * @param filter the function to use as the filter (returns 1 if allowed, 0 otherwise)
+ * the prototype is of the form int filter(int c)
+ * @param c character to replace invalid characters
+ * @return filtered string
+ */
+extern s_string_t safe_string_filter_generic(s_string_t, int(*)(int), const char);
 
 #endif
